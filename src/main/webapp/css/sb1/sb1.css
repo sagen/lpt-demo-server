@@ -13,7 +13,7 @@
 -----------------------------------------------------------------------------------------------------------*/
 
 .ui-bar-a {
-	border: 1px solid  		#B3B3B3  /*{a-bar-border}*/;
+	border: none  /*{a-bar-border}*/;
 	background: #002776 /*{a-bar-background-color}*/;
 	color: #eeecec /*{a-bar-color}*/;
 	font-weight: bold;
