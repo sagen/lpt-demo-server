@@ -1,17 +1,19 @@
 <!DOCTYPE html> 
 <html> 
 <head> 
-	<title>My Page</title> 
+	<title>SpareBank 1 LPT</title> 
 	<meta name="viewport" content="width=device-width, initial-scale=1"> 
 	<!-- Removes url bar and status bar in webkit browsers -->
 	<meta name="apple-mobile-web-app-capable" content="yes" />
 	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
 	<meta charset="utf-8">
 	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.css" />
-	<link rel="stylesheet" href="style.css" />
+	<link rel="stylesheet" href="css/jquery.swipeButton-1.2.css" />
+	<link rel="stylesheet" href="css/style.css" />
 	<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
 	<script src="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js"></script>
-	<script src="javascript.js"></script>
+	<script src="js/jquery.swipeButton-1.2.js"></script>
+	<script src="js/javascript.js"></script>
 </head> 
 <body> 
 
@@ -33,11 +35,16 @@
 	</div><!-- /page -->
 
 	<div id="page2" data-role="page" data-add-back-btn="true" data-back-btn-text="Tilbake">
-		<div data-role="header">
+	<div data-role="header">
 			<h1>SpareBank1 Liv Fagdag Demo</h1>
 		</div><!-- /header -->
-
 		<div data-role="content">	
+			<ul data-role="listview" id="list">
+				<li><a href="#">Test</a></li>
+				<li><a href="#">Test</a></li>
+				<li><a href="#">Test</a></li>
+				<li><a href="#">Test</a></li>
+			</ul>
 			<p><a href="#popup"data-role="button" data-rel="dialog" data-transition="pop">Dialog</a></p>
 		</div><!-- /content -->
 
