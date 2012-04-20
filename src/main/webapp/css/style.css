@@ -4,7 +4,12 @@ body {
 	text-align:center;
 	}
 
-#page1 img.logo{
+.ui-header .logo{
+	height:30px;
+	margin: 5px;
+}
+
+ui-content .logo{
 	width:300px;
 	margin:0px auto;
 }
