@@ -10,12 +10,12 @@ import java.util.List;
 
 import static no.sb1.lpt.Util.JSON_CONTENT_TYPE;
 
-@Path("companies")
+@Path("/companies")
 public class CompanyResource {
 
     @GET
     @Produces(JSON_CONTENT_TYPE)
-    public List<Company> sayHello(){
+    public List<Company> getCompanies(){
 
         return new ArrayList<Company>(){{
             add(new Company("Blomsterbutikk"));

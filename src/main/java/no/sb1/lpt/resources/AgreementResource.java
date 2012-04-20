@@ -8,7 +8,7 @@ import javax.ws.rs.Produces;
 
 import static no.sb1.lpt.Util.JSON_CONTENT_TYPE;
 
-@Path("agreement")
+@Path("/agreements")
 public class AgreementResource {
 
     @GET

@@ -1,23 +1,29 @@
 package no.sb1.lpt;
 
-import com.sun.jersey.spi.container.servlet.ServletContainer;
 import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.servlet.ServletContextHandler;
-import org.eclipse.jetty.servlet.ServletHolder;
+import org.eclipse.jetty.webapp.WebAppContext;
 
 public class Launcher {
     public static void main(String[] args) throws Exception {
-        Server server = new Server(Integer.valueOf(System.getenv("PORT")));
+        String webappDirLocation = "src/main/webapp/";
 
+        // The port that we should run on can be set into an environment variable
+        // Look for that variable and default to 8080 if it isn't there.
+        String webPort = System.getenv("PORT");
+        if (webPort == null || webPort.isEmpty()) {
+            webPort = "8080";
+        }
 
-        ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
-        context.setContextPath("/");
-        ServletHolder servletHolder = new ServletHolder(ServletContainer.class);
-        servletHolder.setInitParameter("com.sun.jersey.api.json.POJOMappingFeature", "true");
-        servletHolder.setInitParameter("com.sun.jersey.config.property.packages", "no.sb1.lpt.resources");
-        context.addServlet(servletHolder, "/*");
-        server.setHandler(context);
-        //context.addServlet(new ServletHolder(new HelloWorld()),"/*");
+        Server server = new Server(Integer.valueOf(webPort));
+        WebAppContext webapp = new WebAppContext();
+
+        webapp.setDescriptor(webappDirLocation + "/WEB-INF/web.xml");
+        webapp.setResourceBase(webappDirLocation);
+        webapp.setContextPath("/");
+        webapp.setParentLoaderPriority(true);
+
+        server.setHandler(webapp);
+
         server.start();
         server.join();
     }

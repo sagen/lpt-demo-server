@@ -1,0 +1,10 @@
+body {
+	margin:0px; 
+	padding:0px;
+	text-align:center;
+	}
+
+#page1 img.logo{
+	width:300px;
+	margin:0px auto;
+}

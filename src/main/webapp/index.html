@@ -1,0 +1,62 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+	<title>My Page</title> 
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<!-- Removes url bar and status bar in webkit browsers -->
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.css" />
+	<link rel="stylesheet" href="style.css" />
+	<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js"></script>
+	<script src="javascript.js"></script>
+</head> 
+<body> 
+
+	<div id="page1" data-role="page">
+
+		<div data-role="header">
+			<h1>SpareBank1 Liv Fagdag Demo</h1>
+		</div><!-- /header -->
+
+		<div data-role="content">
+			<div id="logocontainer">
+				<img class="logo" src="img/sb1logo.png" alt="logo"/>	
+			</div>
+			<h4>Velkommen til fagdag!</h4>
+			<p>I løpet av noen timer skal dere lage LPT på mobil!</p>
+			<a href="#page2" data-role="button" data-transition="slide">Videre</a>
+		</div><!-- /content -->
+
+	</div><!-- /page -->
+
+	<div id="page2" data-role="page" data-add-back-btn="true" data-back-btn-text="Tilbake">
+		<div data-role="header">
+			<h1>SpareBank1 Liv Fagdag Demo</h1>
+		</div><!-- /header -->
+
+		<div data-role="content">	
+			<p><a href="#popup"data-role="button" data-rel="dialog" data-transition="pop">Dialog</a></p>
+		</div><!-- /content -->
+
+	</div><!-- /page -->
+
+	<div data-role="page" id="popup">
+		<div data-role="header" data-theme="b">
+			<h1>Dialog</h1>
+		</div><!-- /header -->
+		<div data-role="content" data-theme="d">	
+			<h2>Popup</h2>
+			<p>Dette er en popup</p>		
+			<p><a href="" data-rel="back" data-role="button" data-inline="true" data-icon="back" data-transition="pop" data-direction="reverse">Back to page</a></p>	
+		</div><!-- /content -->
+
+		<div data-role="footer">
+			<h4>Page Footer</h4>
+		</div><!-- /footer -->
+	</div><!-- /page popup -->
+
+</body>
+</html>
