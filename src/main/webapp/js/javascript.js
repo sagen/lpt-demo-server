@@ -1,5 +1,4 @@
 $(document).ready(function(){
-	
 //	$('#page2').live('pageshow',function(event, ui){
 //        populateList(list); //TODO: implement function
 //    })
