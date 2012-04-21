@@ -7,8 +7,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
-import no.sb1.lpt.repository.DataStore;
-
 import java.util.Collection;
 
 import static no.sb1.lpt.Util.JSON_CONTENT_TYPE;

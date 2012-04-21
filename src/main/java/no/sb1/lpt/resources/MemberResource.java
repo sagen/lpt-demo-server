@@ -28,7 +28,7 @@ public class MemberResource {
 
     @GET
     @Produces(JSON_CONTENT_TYPE)
-    @Path("memberId")
+    @Path("/{memberId}")
     public Member getMember(@PathParam("companyId") Integer companyId,
                                          @PathParam("agreementId") Integer agreementId,
                                          @PathParam("memberId") Integer memberId){
