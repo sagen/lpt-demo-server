@@ -31,13 +31,5 @@ public class CompanyResource {
     public Company getCompany(@PathParam("companyId") int companyId){
         return company(companyId);
     }
-    
-	@GET
-	@Produces(JSON_CONTENT_TYPE)
-	@Path("/{companyId}")
-    public Company getCompany(@PathParam("companyId") Integer companyId){
-        Company company = DataStore.company(companyId);
-        return company == null ? null : company;
-    }
-    
+        
 }
