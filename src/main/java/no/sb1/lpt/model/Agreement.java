@@ -1,40 +1,25 @@
 package no.sb1.lpt.model;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import org.codehaus.jackson.annotate.JsonIgnore;
+
+import java.util.Map;
+import java.util.Set;
+
+import static no.sb1.lpt.Util.generateId;
 
 public class Agreement {
-	
-	public int id;
-	public String navn;
-	public Company bedrift;
-	public String status;
-	public Date etablert;
-	public Date endret;
-	public boolean avtaleGiro;
-	public int minStillingsprosent;
-	public int opptjeningsalder;
-	public int utbetalingsperiode;
-	public String hovedforfall;
-	public int trekkdag;
-	public String betalingsfrekvens;
-	public List<Member> medlemmer;
-	
-	
-    public Agreement(int id, String navn) {
-    	this.id = id;
-        this.navn = navn;
-        
-        Member member1 = new Member();
-        member1.navn = "Anders";
-        Member member2 = new Member();
-        member2.navn = "Sagen";
-        
-        medlemmer = new ArrayList<Member>();
-        medlemmer.add(member1);
-        medlemmer.add(member2);
+    @JsonIgnore
+    public Map<Integer, Member> members;
+    public int id;
+    public String name;
+    public Agreement(String name, Map<Integer, Member> members) {
+        this.id = generateId();
+        this.name = name;
+        this.members = members;
     }
 
-    
+    public Set<Integer> getMemberIds(){
+        return members.keySet();
+    }
+
 }

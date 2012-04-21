@@ -1,18 +1,13 @@
 package no.sb1.lpt.model;
 
-import java.util.Date;
+import static no.sb1.lpt.Util.generateId;
 
 public class Member {
+    public String name;
+    public int id;
 
-	public String navn;
-	public String fnr;
-	public String status;
-	public double aarslonn;
-	public double pensjonsgrunnlag;
-	public int stillingsprosent;
-	public boolean fulltArbeidsdyktig;
-	public Date endret;
-	public boolean laast;
-
-	
+    public Member(String name) {
+        this.id = generateId();
+        this.name = name;
+    }
 }
