@@ -4,7 +4,14 @@ body {
 	text-align:center;
 	}
 
-.ui-header .logo{
-	height:20px;
-	margin: 10px;
+/* .ui-header .logo{ */
+/* 	height:20px; */
+/* 	margin: 10px; */
+/* } */
+
+body .ui-page
+{ 
+     height: 101% !important; 
+     -webkit-backface-visibility: hidden;
 }
+input { outline: none; }
