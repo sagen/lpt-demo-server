@@ -156,6 +156,7 @@ $(document).bind("mobileinit", function(){
 	
 	function attachSwipeDeleteListener(){
 		$('#agreement-list li').swipeDelete({
+			btnTheme: 'e',
 			btnLabel: 'Slett',
 			btnClass: 'aSwipeButton',
 			click: function(e){
