@@ -7,7 +7,7 @@ import java.util.Set;
 
 import static no.sb1.lpt.Util.generateId;
 
-public class Company {
+public class Company{
     public final String name;
     public final Integer id;
     @JsonIgnore
