@@ -2,8 +2,6 @@ package no.sb1.lpt.model;
 
 import java.util.Date;
 
-import static no.sb1.lpt.Util.generateId;
-
 public class Member extends Identifiable{
     public String fnr;
     public String name;

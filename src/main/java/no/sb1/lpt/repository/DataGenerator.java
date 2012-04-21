@@ -1,17 +1,16 @@
 package no.sb1.lpt.repository;
 
-import no.sb1.lpt.model.Agreement;
-import no.sb1.lpt.model.Company;
-import no.sb1.lpt.model.Identifiable;
-import no.sb1.lpt.model.Member;
+import static java.util.Collections.synchronizedMap;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-import static java.util.Collections.synchronizedMap;
-import static no.sb1.lpt.Util.generateId;
+import no.sb1.lpt.model.Agreement;
+import no.sb1.lpt.model.Company;
+import no.sb1.lpt.model.Identifiable;
+import no.sb1.lpt.model.Member;
 
 
 public class DataGenerator {
