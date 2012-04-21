@@ -19,6 +19,7 @@ import static no.sb1.lpt.repository.DataStore.agreement;
 public class AgreementResource {
 	
 
+	@GET
     @Produces(JSON_CONTENT_TYPE)
     public Collection<Agreement> getAgreements(@PathParam("companyId") Integer companyId) {
         Company company = DataStore.company(companyId);
