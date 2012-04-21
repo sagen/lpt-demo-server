@@ -5,10 +5,7 @@ import no.sb1.lpt.model.Agreement;
 import no.sb1.lpt.repository.DataStore;
 import no.sb1.lpt.model.Member;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import java.util.Collection;
 import java.util.Map;
 
@@ -28,12 +25,12 @@ public class MemberResource {
 
     @GET
     @Produces(JSON_CONTENT_TYPE)
+    @Path("/{memberId}")
     public Member getMembers(@PathParam("companyId") Integer companyId,
                                          @PathParam("agreementId") Integer agreementId,
                                          @PathParam("memberId") Integer memberId){
         return member(companyId, agreementId, memberId);
     }
-
 
 
 }
