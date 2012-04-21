@@ -13,6 +13,7 @@
 	<link rel="stylesheet" href="css/style.css" />
 	<!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
 	<link rel="apple-touch-icon" href="img/sb1-icon.png">
+	<link rel="icon" href="img/sb1-icon.png">
 	<!-- For first- and second-generation iPad: -->
 	<link rel="apple-touch-icon" sizes="72x72" href="img/sb1-icon-72x72.png">
 	<!-- For iPhone with high-resolution Retina display: -->
@@ -27,52 +28,76 @@
 </head> 
 <body> 
 
-	<div id="page1" data-role="page" data-theme="a">
+
+	<!-- WELCOME PAGE -->
+	<div id="welcome-page" data-role="page" data-theme="a">
 
 		<div data-role="header">
 			<img src="img/SB1_header_logo.png" class="logo" />
 		</div><!-- /header -->
 
 		<div data-role="content">
-			<div id="logocontainer">
-				<img class="logo" src="img/sb1logo.png" alt="logo"/>	
-			</div>
 			<h4>Velkommen til fagdag!</h4>
 			<p>I løpet av noen timer skal dere lage LPT på mobil!</p>
-			<a href="#page2" data-role="button">Videre</a>
+			<a href="#agreement-list-page" data-role="button">Liste</a>
+			<a href="#test-form-page" data-role="button">Skjema</a>
 		</div><!-- /content -->
 
 	</div><!-- /page -->
 
-	<div id="page2" data-role="page" data-theme="a" data-add-back-btn="true" data-back-btn-text="Tilbake">
+	<!-- AGREEMENT LIST PAGE -->
+	<div id="agreement-list-page" data-role="page" data-theme="a">
+	
 	<div data-role="header">
 			<img src="img/SB1_header_logo.png" class="logo" />
 		</div><!-- /header -->
+		
 		<div data-role="content">	
-			<ul data-role="listview" id="list">
-				<li><a href="#">Test</a></li>
-				<li><a href="#">Test</a></li>
-				<li><a href="#">Test</a></li>
-				<li><a href="#">Test</a></li>
-			</ul>
-			<p><a href="#popup"data-role="button" data-rel="dialog">Dialog</a></p>
+			<ul data-role="listview" id="agreement-list">	</ul>
+<!-- 			<p><a href="#popup"data-role="button" data-rel="dialog">Dialog</a></p> -->
 		</div><!-- /content -->
 	</div><!-- /page -->
-
-	<div id="popup" data-role="page"  data-theme="a">
-		<div data-role="header">
-			<h1>Dialog</h1>
+	
+	<!-- AGREEMENT PAGE -->
+	<div id="agreement-page" data-role="page"  data-theme="a">
+      <div data-role="header">
+			<img src="img/SB1_header_logo.png" class="logo" />
 		</div><!-- /header -->
 		<div data-role="content">	
-			<h2>Popup</h2>
-			<p>Dette er en popup</p>		
-			<p><a href="" data-rel="back" data-role="button" data-inline="true" data-icon="back">Back to page</a></p>	
+			<div id="result"></div>
 		</div><!-- /content -->
+	</div>
+	
+		<!-- FORM PAGE -->
+	<div id="test-form-page" data-role="page" data-theme="a">
+      <div data-role="header">
+			<img src="img/SB1_header_logo.png" class="logo" />
+		</div><!-- /header -->
+		<div data-role="content">	
+			<form action="/rest/agreement/" id="register-agreement-form" method="post" data-ajax="true">
+				<label for="name" class="ui-hidden-accessible">Bedriftens navn:</label>
+				<input type="text" name="name" id="agreement-name" value="" placeholder="Bedriftens navn"/>
+				
+				
+				<button type="submit" id="register-agreement-submit-button" name="submit" value="submit-value">Send</button>
+			 </form>
+		</div><!-- /content -->
+	</div>
 
-		<div data-role="footer">
-			<h4>Page Footer</h4>
-		</div><!-- /footer -->
-	</div><!-- /page popup -->
+<!-- 	<div id="popup" data-role="page"  data-theme="a"> -->
+<!-- 		<div data-role="header"> -->
+<!-- 			<h1>Dialog</h1> -->
+<!-- 		</div>/header -->
+<!-- 		<div data-role="content">	 -->
+<!-- 			<h2>Popup</h2> -->
+<!-- 			<p>Dette er en popup</p>		 -->
+<!-- 			<p><a href="" data-rel="back" data-role="button" data-inline="true" data-icon="back">Tilbake</a></p>	 -->
+<!-- 		</div>/content -->
+
+<!-- 		<div data-role="footer"> -->
+<!-- 			<h4>Page Footer</h4> -->
+<!-- 		</div>/footer -->
+<!-- 	</div>/page popup -->
 
 </body>
 </html>
