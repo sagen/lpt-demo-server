@@ -39,7 +39,7 @@
 		<div data-role="content">
 			<h4>Velkommen til fagdag!</h4>
 			<p>I løpet av noen timer skal dere lage LPT på mobil!</p>
-			<a href="#agreement-list-page" data-role="button">Liste</a>
+			<ul data-role="listview" id="company-list" data-inset="true"></ul>
 			<a href="#test-form-page" data-role="button">Skjema</a>
 		</div><!-- /content -->
 
@@ -53,7 +53,8 @@
 		</div><!-- /header -->
 		
 		<div data-role="content">	
-			<ul data-role="listview" id="agreement-list">	</ul>
+			<h4>Avtaler for <span id="company-name-for-agreements"></span></h4>
+			<ul data-role="listview" id="agreement-list" data-inset="true"></ul>
 <!-- 			<p><a href="#popup"data-role="button" data-rel="dialog">Dialog</a></p> -->
 		</div><!-- /content -->
 	</div><!-- /page -->
