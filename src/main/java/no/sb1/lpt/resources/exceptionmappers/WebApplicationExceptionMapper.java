@@ -1,4 +1,4 @@
-package no.sb1.lpt.exceptions;
+package no.sb1.lpt.resources.exceptionmappers;
 
 
 import javax.ws.rs.WebApplicationException;

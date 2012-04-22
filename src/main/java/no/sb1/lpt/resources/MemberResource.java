@@ -1,23 +1,23 @@
 package no.sb1.lpt.resources;
 
 
-import no.sb1.lpt.Util;
-import no.sb1.lpt.repository.DataStore;
 import no.sb1.lpt.model.Member;
+import no.sb1.lpt.repository.DataStore;
 
 import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import java.util.Collection;
 import java.util.Date;
 
-import static java.lang.Integer.parseInt;
-import static java.lang.Long.parseLong;
-import static no.sb1.lpt.Util.JSON_CONTENT_TYPE;
+import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
+import static no.sb1.lpt.Util.*;
 import static no.sb1.lpt.repository.DataStore.agreement;
 import static no.sb1.lpt.repository.DataStore.member;
 
 @Path("/companies/{companyId}/agreements/{agreementId}/members/")
 @Produces(JSON_CONTENT_TYPE)
+@Consumes(JSON_CONTENT_TYPE)
 public class MemberResource {
 
     @GET
@@ -35,15 +35,19 @@ public class MemberResource {
     }
 
     @POST
-    public Member addMember(@PathParam("companyId") int companyId,
-                            @PathParam("agreementId") int agreementId,
-                            MultivaluedMap<String, String> post) throws WebApplicationException{
-
-        Date registered = new Date(Util.tryToParseLong(post, "registered"));
-        int salary = Util.tryToParseLong(post, "salary").intValue();
-        Member member = new Member(post.getFirst("fnr"), post.getFirst("name"), salary, registered);
-        return DataStore.addMember(companyId, agreementId, member);
+    @Path("/{memberId}")
+    public Member editMember(@PathParam("companyId") int companyId,
+                             @PathParam("agreementId") int agreementId,
+                             @PathParam("memberId") int memberId,
+                             Member edited){
+        return member(companyId, agreementId, memberId).copyFrom(edited);
     }
 
+    @POST
+    public Member addMember(@PathParam("companyId") int companyId,
+                            @PathParam("agreementId") int agreementId,
+                            Member member){
+        return DataStore.addMember(companyId, agreementId, member);
+    }
 
 }

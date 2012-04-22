@@ -28,23 +28,7 @@ public class Util {
         return map;
     }
 
-    public static <V> Map<Integer, V> map(Class<V> clazz){
-        return synchronizedMap(new HashMap<Integer, V>());
-    }
-
-    public static Integer tryToParseInt(MultivaluedMap<String, String> input, String field){
-        try{
-            return parseInt(input.getFirst(field));
-        }catch(NumberFormatException nfEx){
-            throw new ParamException.FormParamException(nfEx, field, "");
-        }
-    }
-
-    public static Long tryToParseLong(MultivaluedMap<String, String> input, String field){
-        try{
-            return parseLong(input.getFirst(field));
-        }catch(NumberFormatException nfEx){
-            throw new ParamException.FormParamException(nfEx, field, "");
-        }
+    public static <T> T nullValue(T possiblyNull, T retIfNull){
+        return possiblyNull == null ? retIfNull : possiblyNull;
     }
 }
