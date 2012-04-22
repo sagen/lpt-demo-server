@@ -74,7 +74,7 @@ $(document).bind("mobileinit", function(){
 		url: '/rest/companies/'+companyId+'/agreements',
 		dataType: "json",
 		success : function(data){
-			list.empty();''
+			list.empty();
 			markup = "";
 			
 			for(var i = 0; i<data.length; i++)
@@ -83,7 +83,7 @@ $(document).bind("mobileinit", function(){
 						'data-agreementname="'+data[i].name+'"'+
 						'data-companyid="'+companyId+'"'+
 						'data-swipeurl="rest/companies/'+companyId+'/agreements/'+data[i].id+'">'+
-						'<a href="#agreement-page?agreementid='+data[i].id+'">'+data[i].name+'</a></li>');
+						'<a href="#agreement-page?agreementid='+data[i].id+'&companyid='+companyId+'">'+data[i].name+'</a></li>');
 			}  
 
 			list.append(markup);
@@ -107,45 +107,33 @@ $(document).bind("mobileinit", function(){
 	function populateAgreementPage(urlObj , options , page){
 		var agreementId = getURLParameter("agreementid", urlObj.href);
 		var companyId = getURLParameter("companyid", urlObj.href);
-		$content = $(page).children( ":jqmData(role=content)" ),
-
+		$content = $(page).children( ":jqmData(role=content)" );
+		
 		// The markup we are going to inject into the content
 		// area of the page.
-		markup = "<p>Medlemsoversikt for " + agreementId + 
-		"</p><ul data-role='listview' data-inset='true'>",
+		var markup = "";
+		
+		$.ajax({
+			url: '/rest/companies/'+companyId+'/agreements/'+agreementId,
+			dataType: "json",
+			success : function(data){
+				markup += '<h4>Avtaledetaljer for ' + data.name + '</h4>';
+				markup += '<p>Avtalenummer: ' + data.id + '</p>';
+				markup += '<p>Medlemmer: '+data.members.join()+'</p>';
+				
+				markup += '<a href="#members-page?companyid'+companyId+'=&agreementid='+agreementId+'" data-role="button">Vis medlemmer</a>';
+				
+				
+				$content.html(markup);
 
-		// The array of items for this agreement.
-//		members = agreement.medlemmer,
+				page.page();
 
-//		// The number of items in the category.
-//		numMembers = members.length;
+				options.dataUrl = urlObj.href;
 
-//		// Generate a list item for each item in the category
-//		// and add it to our markup.
-//		for ( var i = 0; i < numMembers; i++ ) {
-//		markup += '<li><a href="#">' + members[i].navn + '</a></li>';
-//		}
-
-		markup += "</ul>";
-
-
-		// Inject the company markup into the content element.
-		$content.html( markup );
-
-		// Pages are lazily enhanced. We call page() on the page
-		// element to make sure it is always enhanced before we
-		// attempt to enhance the markup we just injected.
-		// Subsequent calls to page() are ignored since a page/widget
-
-
-		// We don't want the data-url of the page we just modified
-		// to be the url that shows up in the browser's location field,
-		// so set the dataUrl option to the URL for the category
-		// we just loaded.
-		options.dataUrl = urlObj.href;
-
-		$.mobile.changePage(page, options);
-		$.mobile.hidePageLoadingMsg();
+				$.mobile.changePage(page, options);
+				$.mobile.hidePageLoadingMsg();
+			}
+		});
 	}
 	
 	function getURLParameter(name, hash) {
