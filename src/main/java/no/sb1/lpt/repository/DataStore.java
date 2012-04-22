@@ -1,5 +1,7 @@
 package no.sb1.lpt.repository;
 
+import com.sun.jersey.api.NotFoundException;
+import no.sb1.lpt.exceptions.EntityNotFoundException;
 import no.sb1.lpt.model.Agreement;
 import no.sb1.lpt.model.Company;
 import no.sb1.lpt.model.Member;
@@ -8,21 +10,37 @@ import no.sb1.lpt.repository.DataGenerator;
 import java.util.*;
 
 public class DataStore {
-    public static Map<Integer, Company> companies = DataGenerator.data();
+    private static Map<Integer, Company> companies = DataGenerator.data();
 
-    public static Company company(Integer companyId){
-        return companies.get(companyId);
+    public static Collection<Company> companies(){
+        return companies.values();
     }
 
-    public static Agreement agreement(Integer companyId, Integer agreementId){
-        if(company(companyId) == null)
-            return null;
-        return company(companyId).agreements.get(agreementId);
+    public static Company company(int companyId){
+        if(companies.containsKey(companyId))
+            return companies.get(companyId);
+        throw new EntityNotFoundException(Company.class);
     }
 
-    public static Member member(Integer companyId, Integer agreementId, Integer memberId){
-        if(agreement(companyId, agreementId) == null)
-            return null;
-        return agreement(companyId, agreementId).members.get(memberId);
+    public static Agreement agreement(int companyId, int agreementId){
+        if(company(companyId).agreements.containsKey(agreementId))
+            return company(companyId).agreements.get(agreementId);
+        throw new EntityNotFoundException(Agreement.class);
+    }
+
+    public static Member member(int companyId, int agreementId, int memberId){
+        if(agreement(companyId, agreementId).members.containsKey(memberId))
+            return agreement(companyId, agreementId).members.get(memberId);
+        throw new EntityNotFoundException(Member.class);
+    }
+
+    public static Member addMember(int companyId, int agreementId, Member member){
+        agreement(companyId, agreementId).members.put(member.id, member);
+        return member;
+    }
+
+    public static Agreement addAgreement(int companyId, Agreement agreement) {
+        company(companyId).agreements.put(agreement.id, agreement);
+        return agreement;
     }
 }

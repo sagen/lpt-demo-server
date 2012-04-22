@@ -3,10 +3,10 @@ package no.sb1.lpt.model;
 
 import static no.sb1.lpt.Util.generateId;
 
-public abstract class Identifiable {
+public abstract class Entity {
     public int id;
 
-    protected Identifiable() {
+    protected Entity() {
         this.id = generateId();
     }
 }

@@ -1,6 +1,7 @@
 package no.sb1.lpt.resources;
 
 import no.sb1.lpt.model.Company;
+import no.sb1.lpt.repository.DataStore;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -18,13 +19,11 @@ import static no.sb1.lpt.repository.DataStore.company;
 public class CompanyResource {
 	
     @GET
-    @Produces(JSON_CONTENT_TYPE)
     public Collection<Company> getCompanies(){
-        return companies.values();
+        return companies();
     }
 
     @GET
-    @Produces(JSON_CONTENT_TYPE)
     @Path("/{companyId}")
     public Company getCompany(@PathParam("companyId") int companyId){
         return company(companyId);

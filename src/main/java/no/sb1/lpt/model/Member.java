@@ -2,7 +2,7 @@ package no.sb1.lpt.model;
 
 import java.util.Date;
 
-public class Member extends Identifiable{
+public class Member extends Entity {
     public String fnr;
     public String name;
     public Integer salary;

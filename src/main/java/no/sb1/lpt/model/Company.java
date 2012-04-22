@@ -6,9 +6,9 @@ import java.util.Map;
 import java.util.Set;
 
     
-public class Company extends Identifiable{
+public class Company extends Entity {
     @JsonIgnore
-    public Map<Integer, Agreement> agreements;
+    public final Map<Integer, Agreement> agreements;
 
     public final String name;
     public Company(String name, Map<Integer, Agreement> agreements) {

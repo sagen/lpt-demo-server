@@ -1,15 +1,14 @@
 package no.sb1.lpt.repository;
 
-import static java.util.Collections.synchronizedMap;
+import static no.sb1.lpt.model.Agreement.Status.*;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import no.sb1.lpt.Util;
 import no.sb1.lpt.model.Agreement;
 import no.sb1.lpt.model.Company;
-import no.sb1.lpt.model.Identifiable;
 import no.sb1.lpt.model.Member;
 
 
@@ -17,14 +16,15 @@ public class DataGenerator {
     private static Random generator = new Random();
 
     private static Map<Integer, Agreement> agreements() {
-        Agreement a1 = new Agreement("Avtale 1", members());
-        Agreement a2 = new Agreement("Avtale 2", members());
-        Agreement a3 = new Agreement("Avtale 3", members());
-        return map(a1, a2, a3);
+        return Util.map(agreement(), agreement(), agreement());
+    }
+
+    private static Agreement agreement(){
+        return new Agreement(members(), agreementNumber(), status(), registered(),minimumAge());
     }
 
     static Map<Integer, Company> data() {
-        return map(new Company("Snekker", agreements()), new Company("Maler", agreements()),
+        return Util.map(new Company("Snekker", agreements()), new Company("Maler", agreements()),
                 new Company("Blomsterforretning", agreements()), new Company("Kakedekoratør", agreements()));
     }
 
@@ -33,7 +33,7 @@ public class DataGenerator {
         for (int x = 0; x < members.length; x++) {
             members[x] = member();
         }
-        return map(members);
+        return Util.map(members);
     }
 
     private static String rand(String... elms) {
@@ -68,11 +68,13 @@ public class DataGenerator {
     }
 
 
-    private static <V extends Identifiable> Map<Integer, V> map(V... values) {
-        Map<Integer, V> map = synchronizedMap(new HashMap<Integer, V>());
-        for (V value : values) {
-            map.put(value.id, value);
-        }
-        return map;
+    private static int minimumAge(){
+        return generator.nextInt(6) + 16;
+    }
+    private static int agreementNumber(){
+        return generator.nextInt();
+    }
+    private static Agreement.Status status(){
+        return generator.nextBoolean() ? ACTIVE : SUSPENDED;
     }
 }
