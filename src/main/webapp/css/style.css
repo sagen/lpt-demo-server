@@ -8,3 +8,8 @@ body {
 	height:20px;
 	margin: 10px;
 }
+
+body .ui-page
+{ 
+     height: 100% !important; 
+}
