@@ -1,3 +1,6 @@
+// var baseUrl = 'http://lptdemo.herokuapp.com/rest/';
+var baseUrl = 'rest/';
+
 $(document).bind("mobileinit", function(){
 
     $.extend($.mobile,{
@@ -168,7 +171,7 @@ $(document).bind("mobileinit", function(){
                 var url = $(e.target).closest('a.aSwipeButton').attr('href');
                 $(this).parents('li').slideUp();
                 $.ajax({
-                    url: 'rest/' + url,
+                    url: baseUrl + url,
                     type: 'POST',
                     success:function(data) {
                         return false;
@@ -210,7 +213,7 @@ $(document).bind("mobileinit", function(){
 
     function getData(url, callback) {
         $.ajax({
-            url: 'rest/' + url,
+            url: baseUrl + url,
             dataType: "json",
             success : callback
         });
