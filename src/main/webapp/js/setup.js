@@ -22,7 +22,7 @@ $(document).bind("mobileinit", function(){
 
     // Listen for any attempts to call changePage().
     //  The call is intercepted and we fill the pages with data from server
-    $(document).bind( "pagebeforechange", function( e, data ) {
+    $(document).bind("pagebeforechange", function(e, data) {
         var url = getUrl(data);
 
         switch (getPage(data)) {
@@ -48,7 +48,7 @@ $(document).bind("mobileinit", function(){
     });
 
     function getUrl(data) {
-        var url = $.mobile.path.parseUrl( data.toPage );
+        var url = $.mobile.path.parseUrl(data.toPage);
         return url;
     }
 
@@ -66,13 +66,13 @@ $(document).bind("mobileinit", function(){
         }
     }
 
-    function populateCompanies(data , page){
+    function populateCompanies(data , page) {
         var list = $('#company-list');
 
         $.ajax({
             url: 'rest/companies/',
             dataType: "json",
-            success : function(data){
+            success : function(data) {
                 list.empty();
 
                 for(var i = 0; i<data.length; i++) {
@@ -87,7 +87,7 @@ $(document).bind("mobileinit", function(){
         });
     }
 
-    function populateAgreements( urlObj, options , page){
+    function populateAgreements(urlObj, options , page) {
         var companyId = getURLParameter("companyid", urlObj.href);
         var list = $('#agreement-list');
         var markup = "";
@@ -95,7 +95,7 @@ $(document).bind("mobileinit", function(){
         $.ajax({
             url: 'rest/companies/'+companyId+'/agreements',
             dataType: "json",
-            success : function(data){
+            success : function(data) {
                 list.empty();
 
                 for(var i = 0; i<data.length; i++)
@@ -127,16 +127,16 @@ $(document).bind("mobileinit", function(){
     }
 
 
-    function populateAgreementPage(urlObj , options , page){
+    function populateAgreementPage(urlObj , options , page) {
         var agreementId = getURLParameter("agreementid", urlObj.href);
         var companyId = getURLParameter("companyid", urlObj.href);
-        $content = $(page).children( ":jqmData(role=content)" );
+        $content = $(page).children(":jqmData(role=content)");
         var markup = "";
 
         $.ajax({
             url: 'rest/companies/'+companyId+'/agreements/'+agreementId,
             dataType: "json",
-            success : function(data){
+            success : function(data) {
                 markup += '<h4>Avtaledetaljer for ' + data.name + '</h4>';
                 markup += '<p>Avtalenummer: ' + data.id + '</p>';
                 markup += '<p>Medlemmer: '+data.members.join()+'</p>';
@@ -165,12 +165,12 @@ $(document).bind("mobileinit", function(){
         }
     }
 
-    function attachSwipeDeleteListener(){
+    function attachSwipeDeleteListener() {
         $('#agreement-list li').swipeDelete({
             btnTheme: 'e',
             btnLabel: 'Slett',
             btnClass: 'aSwipeButton',
-            click: function(e){
+            click: function(e) {
                 e.preventDefault();
                 e.stopPropagation();
                 var url = $(e.target).closest('a.aSwipeButton').attr('href');
