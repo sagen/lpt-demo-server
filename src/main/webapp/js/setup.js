@@ -19,8 +19,7 @@ $(document).bind("mobileinit", function(){
     $.mobile.listview.prototype.options.filterTheme  = "b";
 
 
-    // Listen for any attempts to call changePage().
-    //  The call is intercepted and we fill the pages with data from server
+    // Intercept calls to changePage() and fill pages with data from server
     $(document).bind("pagebeforechange", function(e, data) {
         var url = getURL(data);
 
