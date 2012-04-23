@@ -32,7 +32,7 @@ $(document).bind("mobileinit", function(){
           case "agreement-list":
             $.mobile.showPageLoadingMsg();
             e.preventDefault();
-            populateAgreements(url, data, $('#agreement-list-page'));
+            populateAgreements(url, data.options, $('#agreement-list-page'));
             break;
 
           case "agreement":
@@ -53,10 +53,9 @@ $(document).bind("mobileinit", function(){
             list.empty();
 
             for(var i = 0; i<data.length; i++) {
-                var id = data[i].id;
-                var name = data[i].name;
-                list.append('<li data-companyid="' + id + '" data-companyname="' + name + '" data-swipeurl="rest/companies/' + id + '">' +
-                        '<a href="#agreement-list-page?companyid=' + id + '">' + name + '</a></li>');
+                var company = data[i];
+                list.append('<li data-companyid="' + company.id + '" data-companyname="' + company.name + '" data-swipeurl="rest/companies/' + company.id + '">' +
+                        '<a href="#agreement-list-page?companyid=' + company.id + '">' + company.name + '</a></li>');
             }
 
             list.listview('refresh');
