@@ -265,25 +265,27 @@ $(document).bind("mobileinit", function(){
     }
 
     function displayMap(latitude, longitude) {
-      var directionsDisplay;
-      var map;
-
-      directionsDisplay = new google.maps.DirectionsRenderer();
-
-      var oslo = new google.maps.LatLng(59.904719, 10.753341);
       var start = new google.maps.LatLng(59.912083, 10.750615);
       var end = new google.maps.LatLng(latitude, longitude);
+      var directionsDisplay = new google.maps.DirectionsRenderer();
 
+      directionsDisplay.setMap(getMap());
+
+      addDirections(directionsDisplay, start, end);
+    }
+
+    function getMap() {
+      var oslo = new google.maps.LatLng(59.904719, 10.753341);
       var myOptions = {
         zoom:16,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         center: oslo
       };
 
-      map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+      return new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+    }
 
-      directionsDisplay.setMap(map);
-
+    function addDirections(map, start, end) {
       var directionsService = new google.maps.DirectionsService();
       var request = {
         origin: start,
@@ -294,7 +296,7 @@ $(document).bind("mobileinit", function(){
 
       directionsService.route(request, function(result, status) {
         if (status == google.maps.DirectionsStatus.OK) {
-          directionsDisplay.setDirections(result);
+          map.setDirections(result);
         }
       });
     }
