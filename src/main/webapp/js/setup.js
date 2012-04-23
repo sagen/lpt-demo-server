@@ -131,24 +131,15 @@ $(document).bind("mobileinit", function(){
         });
     }
     
-    function populateAgreementForm(urlObj, options, page) {
+    function populateMemberForm(urlObj, options, page) {
         var agreementId = getURLParameter("agreementid", urlObj.href);
         var companyId = getURLParameter("companyid", urlObj.href);
-        var selectBox = $('#select-agreement-type');
-        var selectOptions ="";
-        var registerButton = $('register-agreement-select-button');
-        getData('companies/0/agreements/types' , function(agreementType) {
-            
-            for(var i = 0; i<agreementType.length; i++)
-            	{
-            	 selectOptions += '<option value="' + agreementType[i] + '">' + agreementType[i] + '</option>';
-            	}
-            
-            selectBox.html(selectOptions);
+        var submitButton = $('#register-member-submit-button');
+        
+        submitButton.click(submitMemberForm(companyId, agreementId)));
            
             page.page();
 
-            selectBox.selectmenu();
             
             options.dataUrl = urlObj.href;
 
@@ -156,6 +147,26 @@ $(document).bind("mobileinit", function(){
             $.mobile.hidePageLoadingMsg();
         });
     }
+
+   function submitMemberForm(companyId, agreementId)
+   {
+	   var member = {};
+	   member.fnr = $('#register-member-form #ssn').val();
+	   member.name = $('#register-member-form #name').val();
+	   member.salary = $('#register-member-form #salary').val();
+	   
+	   
+	   $.ajax({
+           url: 'rest/companies' + companyId + "/agreements/" + agreementId + "/members",
+           dataType: "json",
+           type : 'POST',
+           data: member,
+           success : function(){
+        	   console.log("posted");
+           }
+       });
+	   
+   }
 
     function attachSwipeDeleteListener() {
         $('#agreement-list li').swipeDelete({
