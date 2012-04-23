@@ -63,7 +63,7 @@ $(document).bind("mobileinit", function(){
         }
     });
 
-    function showMap(urlObj, options, page, position) {
+    function showMap(urlObj, options, page) {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
           var latitude = position.coords.latitude;
