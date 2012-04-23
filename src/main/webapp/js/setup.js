@@ -136,6 +136,7 @@ $(document).bind("mobileinit", function(){
         var companyId = getURLParameter("companyid", urlObj.href);
         var selectBox = $('#select-agreement-type');
         var selectOptions ="";
+        var registerButton = $('register-agreement-select-button');
         getData('companies/0/agreements/types' , function(agreementType) {
             
             for(var i = 0; i<agreementType.length; i++)
