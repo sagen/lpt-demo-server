@@ -21,7 +21,7 @@ $(document).bind("mobileinit", function(){
 
 
 
-     // Listen for any attempts to call changePage().
+    // Listen for any attempts to call changePage().
     //  The call is intercepted and we fill the pages with data from server
     $(document).bind( "pagebeforechange", function( e, data ) {
         if ( typeof data.toPage === "string" ) {
@@ -39,7 +39,7 @@ $(document).bind("mobileinit", function(){
                 populateAgreements( u, data , $('#agreement-list-page'));
             }
 
-        }else if($(data.toPage)[0]==$('#welcome-page')[0]){
+        } else if($(data.toPage)[0]==$('#welcome-page')[0]){
             populateCompanies();
         }
 
@@ -55,13 +55,12 @@ $(document).bind("mobileinit", function(){
             success : function(data){
                 list.empty();
 
-                for(var i = 0; i<data.length; i++)
-                    {
+                for(var i = 0; i<data.length; i++) {
                     var id = data[i].id;
                     var name = data[i].name;
                     list.append('<li data-companyid="'+id+'" data-companyname="'+name+'" data-swipeurl="rest/companies/'+id+'">' +
                             '<a href="#agreement-list-page?companyid='+id+'">'+name+'</a></li>');
-                    }
+                }
 
                 list.listview('refresh');
             }
