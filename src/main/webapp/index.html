@@ -1,105 +1,108 @@
-<!DOCTYPE html> 
-<html> 
-<head> 
-	<title>SpareBank 1 LPT</title> 
-	<meta name="viewport" content="width=device-width, initial-scale=1"> 
-	<!-- Removes url bar and status bar in webkit browsers -->
-	<meta name="apple-mobile-web-app-capable" content="yes" />
-	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
-	<meta charset="utf-8">
-		<!-- 	This file should be changed as this is a test file, but it fixes a flicker issue in iOS, and should be in JQM 1.1.1 -->
-	<link rel="stylesheet" href="http://jquerymobile.com/test/css/themes/default/jquery.mobile.css" />
-	<link rel="stylesheet" href="css/sb1/sb1.css" />
-	<link rel="stylesheet" href="css/jquery.swipeButton-1.2.css" />
-	<link rel="stylesheet" href="css/style.css" />
-	<!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
-	<link rel="apple-touch-icon" href="img/sb1-icon.png">
-	<link rel="icon" href="img/sb1-icon.png">
-	<!-- For first- and second-generation iPad: -->
-	<link rel="apple-touch-icon" sizes="72x72" href="img/sb1-icon-72x72.png">
-	<!-- For iPhone with high-resolution Retina display: -->
-	<link rel="apple-touch-icon" sizes="114x114" href="img/sb1-icon-114x114-iphone-retina.png">
-	<!-- For third-generation iPad with high-resolution Retina display: -->
-	<link rel="apple-touch-icon" sizes="144x144" href="img/sb1-icon-144x144-ipad-retina.png">
-	<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
-	<script src="js/setup.js"></script>
-		<!-- 	This file should be changed as this is a test file, but it fixes a flicker issue in iOS, and should be in JQM 1.1.1 -->
-	<script src="http://jquerymobile.com/test/js/jquery.mobile.js"></script>
-	<script src="js/jquery.swipeButton-1.2.js"></script>
-	<script src="js/javascript.js"></script>
-</head> 
-<body> 
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SpareBank 1 LPT</title>
 
+    <meta charset="utf-8">
 
-	<!-- WELCOME PAGE -->
-	<div id="welcome-page" data-role="page" data-theme="a">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Removes url bar and status bar in webkit browsers -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 
-		<div data-role="header">
-			<img src="img/SB1_header_logo.png" class="logo" />
-		</div><!-- /header -->
+    <!--   This file should be changed as this is a test file, but it fixes a flicker issue in iOS, and should be in JQM 1.1.1 -->
+    <link rel="stylesheet" href="http://jquerymobile.com/test/css/themes/default/jquery.mobile.css" />
+    <link rel="stylesheet" href="css/sb1/sb1.css" />
+    <link rel="stylesheet" href="css/jquery.swipeButton-1.2.css" />
+    <link rel="stylesheet" href="css/style.css" />
 
-		<div data-role="content">
-			<h4>Velkommen til fagdag!</h4>
-			<p>I løpet av noen timer skal dere lage LPT på mobil!</p>
-			<ul data-role="listview" id="company-list" data-inset="true"></ul>
-			<a href="#test-form-page" data-role="button">Skjema</a>
-		</div><!-- /content -->
+    <!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
+    <link rel="apple-touch-icon" href="img/sb1-icon.png">
+    <link rel="icon" href="img/sb1-icon.png">
+    <!-- For first- and second-generation iPad: -->
+    <link rel="apple-touch-icon" sizes="72x72" href="img/sb1-icon-72x72.png">
+    <!-- For iPhone with high-resolution Retina display: -->
+    <link rel="apple-touch-icon" sizes="114x114" href="img/sb1-icon-114x114-iphone-retina.png">
+    <!-- For third-generation iPad with high-resolution Retina display: -->
+    <link rel="apple-touch-icon" sizes="144x144" href="img/sb1-icon-144x144-ipad-retina.png">
 
-	</div><!-- /page -->
+    <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+    <script src="js/setup.js"></script>
+    <!--   This file should be changed as this is a test file, but it fixes a flicker issue in iOS, and should be in JQM 1.1.1 -->
+    <script src="http://jquerymobile.com/test/js/jquery.mobile.js"></script>
+    <script src="js/jquery.swipeButton-1.2.js"></script>
+    <script src="js/javascript.js"></script>
+  </head>
+  <body>
 
-	<!-- AGREEMENT LIST PAGE -->
-	<div id="agreement-list-page" data-role="page" data-theme="a">
-	
-	<div data-role="header">
-			<img src="img/SB1_header_logo.png" class="logo" />
-		</div><!-- /header -->
-		
-		<div data-role="content">	
-			<ul data-role="listview" id="agreement-list" data-inset="true"></ul>
-<!-- 			<p><a href="#popup"data-role="button" data-rel="dialog">Dialog</a></p> -->
-		</div><!-- /content -->
-	</div><!-- /page -->
-	
-	<!-- AGREEMENT PAGE -->
-	<div id="agreement-page" data-role="page"  data-theme="a">
+    <!-- WELCOME PAGE -->
+    <div id="welcome-page" data-role="page" data-theme="a">
+
       <div data-role="header">
-			<img src="img/SB1_header_logo.png" class="logo" />
-		</div><!-- /header -->
-		<div data-role="content">	
-			<div id="result"></div>
-		</div><!-- /content -->
-	</div>
-	
-		<!-- FORM PAGE -->
-	<div id="test-form-page" data-role="page" data-theme="a">
+        <img src="img/SB1_header_logo.png" class="logo" />
+      </div>
+
+      <div data-role="content">
+        <h4>Velkommen til fagdag!</h4>
+        <p>I løpet av noen timer skal dere lage LPT på mobil!</p>
+        <ul data-role="listview" id="company-list" data-inset="true"></ul>
+        <a href="#test-form-page" data-role="button">Skjema</a>
+      </div>
+
+    </div>
+
+    <!-- AGREEMENT LIST PAGE -->
+    <div id="agreement-list-page" data-role="page" data-theme="a">
+
       <div data-role="header">
-			<img src="img/SB1_header_logo.png" class="logo" />
-		</div><!-- /header -->
-		<div data-role="content">	
-			<form action="/rest/agreement/" id="register-agreement-form" method="post" data-ajax="true">
-				<label for="name" class="ui-hidden-accessible">Bedriftens navn:</label>
-				<input type="text" name="name" id="agreement-name" value="" placeholder="Bedriftens navn"/>
-				
-				
-				<button type="submit" id="register-agreement-submit-button" name="submit" value="submit-value">Send</button>
-			 </form>
-		</div><!-- /content -->
-	</div>
+        <img src="img/SB1_header_logo.png" class="logo" />
+      </div>
 
-<!-- 	<div id="popup" data-role="page"  data-theme="a"> -->
-<!-- 		<div data-role="header"> -->
-<!-- 			<h1>Dialog</h1> -->
-<!-- 		</div>/header -->
-<!-- 		<div data-role="content">	 -->
-<!-- 			<h2>Popup</h2> -->
-<!-- 			<p>Dette er en popup</p>		 -->
-<!-- 			<p><a href="" data-rel="back" data-role="button" data-inline="true" data-icon="back">Tilbake</a></p>	 -->
-<!-- 		</div>/content -->
+      <div data-role="content">
+        <ul data-role="listview" id="agreement-list" data-inset="true"></ul>
+        <!--       <p><a href="#popup"data-role="button" data-rel="dialog">Dialog</a></p> -->
+      </div>
+    </div>
 
-<!-- 		<div data-role="footer"> -->
-<!-- 			<h4>Page Footer</h4> -->
-<!-- 		</div>/footer -->
-<!-- 	</div>/page popup -->
+    <!-- AGREEMENT PAGE -->
+    <div id="agreement-page" data-role="page"  data-theme="a">
+      <div data-role="header">
+        <img src="img/SB1_header_logo.png" class="logo" />
+      </div>
+      <div data-role="content">
+        <div id="result"></div>
+      </div>
+    </div>
 
-</body>
+    <!-- FORM PAGE -->
+    <div id="test-form-page" data-role="page" data-theme="a">
+      <div data-role="header">
+        <img src="img/SB1_header_logo.png" class="logo" />
+      </div>
+      <div data-role="content">
+        <form action="/rest/agreement/" id="register-agreement-form" method="post" data-ajax="true">
+          <label for="name" class="ui-hidden-accessible">Bedriftens navn:</label>
+          <input type="text" name="name" id="agreement-name" value="" placeholder="Bedriftens navn"/>
+
+          <button type="submit" id="register-agreement-submit-button" name="submit" value="submit-value">Send</button>
+        </form>
+      </div>
+    </div>
+
+    <!--   <div id="popup" data-role="page"  data-theme="a"> -->
+      <!--     <div data-role="header"> -->
+        <!--       <h1>Dialog</h1> -->
+        <!--     </div>/header -->
+      <!--     <div data-role="content">   -->
+        <!--       <h2>Popup</h2> -->
+        <!--       <p>Dette er en popup</p>     -->
+        <!--       <p><a href="" data-rel="back" data-role="button" data-inline="true" data-icon="back">Tilbake</a></p>   -->
+        <!--     </div>/content -->
+
+      <!--     <div data-role="footer"> -->
+        <!--       <h4>Page Footer</h4> -->
+        <!--     </div>/footer -->
+      <!--   </div>/page popup -->
+
+  </body>
 </html>
