@@ -2,6 +2,7 @@ package no.sb1.lpt.resources;
 
 
 import static no.sb1.lpt.Util.JSON_CONTENT_TYPE;
+import static no.sb1.lpt.Util.JSONP_CONTENT_TYPE;
 import static no.sb1.lpt.repository.DataStore.agreement;
 import static no.sb1.lpt.repository.DataStore.member;
 
@@ -26,7 +27,7 @@ import no.sb1.lpt.repository.DataStore;
 public class MemberResource {
 
     @GET
-    @Produces("application/x-javascript")
+    @Produces(JSONP_CONTENT_TYPE)
     public JSONWithPadding getMembers(@PathParam("companyId") int companyId,
                                       @PathParam("agreementId") int agreementId,
                                       @QueryParam("callback") String callback) {
@@ -35,7 +36,7 @@ public class MemberResource {
 
 
     @GET
-    @Produces("application/x-javascript")
+    @Produces(JSONP_CONTENT_TYPE)
     @Path("/{memberId}")
     public JSONWithPadding getMember(@PathParam("companyId") Integer companyId,
                                      @PathParam("agreementId") Integer agreementId,

@@ -1,6 +1,7 @@
 package no.sb1.lpt.resources;
 
 import static no.sb1.lpt.Util.JSON_CONTENT_TYPE;
+import static no.sb1.lpt.Util.JSONP_CONTENT_TYPE;
 import static no.sb1.lpt.repository.DataStore.agreement;
 import static no.sb1.lpt.repository.DataStore.company;
 
@@ -25,13 +26,13 @@ import no.sb1.lpt.repository.DataStore;
 public class AgreementResource {
 
     @GET
-    @Produces("application/x-javascript")
+    @Produces(JSONP_CONTENT_TYPE)
     public JSONWithPadding getAgreements(@PathParam("companyId") Integer companyId, @QueryParam("callback") String callback) {
         return new JSONWithPadding(new GenericEntity<Collection<Agreement>>(company(companyId).agreements.values()) {}, callback);
     }
 
     @GET
-    @Produces("application/x-javascript")
+    @Produces(JSONP_CONTENT_TYPE)
     @Path("/{agreementId}")
     public JSONWithPadding getAgreement(@PathParam("companyId") int companyId, @PathParam("agreementId") int agreementId, @QueryParam("callback") String callback) {
         return new JSONWithPadding(new GenericEntity<Agreement>(agreement(companyId, agreementId)) {}, callback);

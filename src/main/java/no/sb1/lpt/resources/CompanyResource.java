@@ -1,6 +1,6 @@
 package no.sb1.lpt.resources;
 
-import static no.sb1.lpt.Util.JSON_CONTENT_TYPE;
+import static no.sb1.lpt.Util.JSONP_CONTENT_TYPE;
 import static no.sb1.lpt.repository.DataStore.companies;
 import static no.sb1.lpt.repository.DataStore.company;
 
@@ -18,7 +18,7 @@ import com.sun.jersey.api.json.JSONWithPadding;
 import no.sb1.lpt.model.Company;
 
 @Path("/companies")
-@Produces("application/x-javascript")
+@Produces(JSONP_CONTENT_TYPE)
 public class CompanyResource {
 
     @GET
