@@ -46,7 +46,6 @@ $(document).bind("mobileinit", function(){
     });
 
     function populateCompanies(data , page){
-        var page = $('#welcome-page');
         var list = $('#company-list');
 
         $.ajax({
