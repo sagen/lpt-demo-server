@@ -23,7 +23,7 @@ $(document).bind("mobileinit", function(){
     // Listen for any attempts to call changePage().
     //  The call is intercepted and we fill the pages with data from server
     $(document).bind("pagebeforechange", function(e, data) {
-        var url = getUrl(data);
+        var url = getURL(data);
 
         switch (getPage(data)) {
           case "frontpage":
@@ -47,14 +47,14 @@ $(document).bind("mobileinit", function(){
         }
     });
 
-    function getUrl(data) {
+    function getURL(data) {
         var url = $.mobile.path.parseUrl(data.toPage);
         return url;
     }
 
     function getPage(data) {
       if (typeof data.toPage === "string") {
-            var url = getUrl(data);
+            var url = getURL(data);
 
             if (url.hash.search(/^#agreement-page/) !== -1) {
               return "agreement";
