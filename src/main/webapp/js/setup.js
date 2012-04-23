@@ -33,13 +33,13 @@ $(document).bind("mobileinit", function(){
           case "agreement-list":
             $.mobile.showPageLoadingMsg();
             e.preventDefault();
-            populateAgreements(url, data , $('#agreement-list-page'));
+            populateAgreements(url, data, $('#agreement-list-page'));
             break;
 
           case "agreement":
             $.mobile.showPageLoadingMsg();
             e.preventDefault();
-            populateAgreementPage(url, data.options , $('#agreement-page'));
+            populateAgreementPage(url, data.options, $('#agreement-page'));
             break;
 
           default:
@@ -47,7 +47,7 @@ $(document).bind("mobileinit", function(){
         }
     });
 
-    function populateCompanies(data , page) {
+    function populateCompanies(data, page) {
         var list = $('#company-list');
 
         getData('companies', function(data) {
@@ -64,7 +64,7 @@ $(document).bind("mobileinit", function(){
         });
     }
 
-    function populateAgreements(urlObj, options , page) {
+    function populateAgreements(urlObj, options, page) {
         var companyId = getURLParameter("companyid", urlObj.href);
         var list = $('#agreement-list');
         var markup = "";
@@ -99,7 +99,7 @@ $(document).bind("mobileinit", function(){
     }
 
 
-    function populateAgreementPage(urlObj , options , page) {
+    function populateAgreementPage(urlObj, options, page) {
         var agreementId = getURLParameter("agreementid", urlObj.href);
         var companyId = getURLParameter("companyid", urlObj.href);
         $content = $(page).children(":jqmData(role=content)");
