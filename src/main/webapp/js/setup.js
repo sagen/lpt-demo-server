@@ -46,10 +46,10 @@ $(document).bind("mobileinit", function(){
             populateAgreementPage(url, data.options, $('#agreement-page'));
             break;
             
-          case "agreement-form":
+          case "member-form":
             $.mobile.showPageLoadingMsg();
             e.preventDefault();
-            populateAgreementForm(url, data.options, $('#register-agreement-form-page'));
+            populateMemberForm(url, data.options, $('#register-member-form-page'));
             break;
 
           default:
@@ -139,7 +139,9 @@ $(document).bind("mobileinit", function(){
         var companyId = getURLParameter("companyid", urlObj.href);
         var submitButton = $('#register-member-submit-button');
         
-        submitButton.click(submitMemberForm(companyId, agreementId));
+        submitButton.click(function(){
+        	submitMemberForm(companyId, agreementId)
+        });
            
             page.page();
 
@@ -160,12 +162,16 @@ $(document).bind("mobileinit", function(){
 	   
 	   
 	   $.ajax({
-           url: 'rest/companies' + companyId + "/agreements/" + agreementId + "/members",
-           dataType: "json",
+           url: 'rest/companies/' + companyId + "/agreements/" + agreementId + "/members/",
+           contentType: "application/json",
            type : 'POST',
-           data: member,
-           success : function(){
+           data: JSON.stringify(member),
+           dataType: "json",
+           success : function(createdmember){
         	   console.log("posted");
+           },
+           error: function(){
+        	   
            }
        });
 	   
@@ -214,8 +220,8 @@ $(document).bind("mobileinit", function(){
               return "agreement";
             } else if (url.hash.search(/^#agreement-list-page/) !== -1) {
               return "agreement-list";
-            } else if (url.hash.search(/^#register-agreement-form-page/) !== -1) {
-              return "agreement-form";
+            } else if (url.hash.search(/^#register-member-form-page/) !== -1) {
+              return "member-form";
             }
         } else if ($(data.toPage)[0]==$('#welcome-page')[0]) {
             return "frontpage";

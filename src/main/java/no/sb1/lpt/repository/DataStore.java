@@ -36,6 +36,7 @@ public class DataStore {
     }
 
     public static Member addMember(int companyId, int agreementId, Member member){
+    	member.registered = new Date();
         agreement(companyId, agreementId).members.put(member.id, member);
         return member;
     }

@@ -55,7 +55,6 @@
 
       <div data-role="header">
         <img src="img/SB1_header_logo.png" class="logo" />
-        <a href="#register-agreement-form-page" data-icon="plus" class="ui-btn-right">Ny avtale</a>
       </div>
 
       <div data-role="content">
@@ -82,20 +81,44 @@
 		<span id="agreement-members-button"></span>
       </div>
     </div>
+    
+    
+        <!-- MEMBER LIST PAGE -->
+    <div id="member-list-page" data-role="page" data-theme="a">
 
-    <!-- FORM PAGE -->
-    <div id="register-agreement-form-page" data-role="page" data-theme="a">
       <div data-role="header">
-      <a href="#" data-rel="back" data-icon="delete">Avbryt</a>
         <img src="img/SB1_header_logo.png" class="logo" />
-       <a href="#" id="register-agreement-submit-button" data-icon="check">Lagre</a>
+        <a href="#register-member-form-page" data-icon="plus" class="ui-btn-right">Ny avtale</a>
       </div>
 
       <div data-role="content">
-        <form action="/rest/agreement/" id="register-agreement-form" method="post" data-ajax="true">
-			<label for="select-agreement-type" class="select">Avtaletype:</label>
-			<select name="select-agreement-type" id="select-agreement-type"></select>
+        <h4>Medlemmer</h4>
+        <ul data-role="listview" id="member-list" data-inset="true"></ul>
+      </div>
+    </div>
 
+    <!-- FORM PAGE -->
+    <div id="register-member-form-page" data-role="page" data-theme="a">
+      <div data-role="header">
+      <a href="#" data-rel="back" data-icon="delete">Avbryt</a>
+        <img src="img/SB1_header_logo.png" class="logo" />
+       <a href="#" id="register-member-submit-button" data-icon="check">Lagre</a>
+      </div>
+
+      <div data-role="content">
+        <form action="#" id="register-member-form" method="post" data-ajax="false">
+				<div data-role="fieldcontain">
+					<label for="ssn">Fødselsnummer:</label>
+					<input type="number" name="ssn" id="ssn" value="" placeholder="Fødselsnummer"/>
+				</div>
+				<div data-role="fieldcontain">
+					<label for="name">Name:</label>
+					<input type="text" name="name" id="name" value="" placeholder="Navn"/>
+				</div>
+				<div data-role="fieldcontain">
+					<label for="salary">Årslønn:</label>
+					<input type="number" name="salary" id="salary" value="" placeholder="Lønn"/>
+				</div>
         </form>
       </div>
     </div>
