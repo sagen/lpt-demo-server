@@ -171,7 +171,7 @@ $(document).bind("mobileinit", function(){
     function getData(url, callback) {
         $.ajax({
             url: 'rest/' + url,
-            dataType: "json",
+            dataType: "jsonp",
             success : callback
         });
     }
