@@ -77,7 +77,7 @@ $(document).bind("mobileinit", function(){
                         'data-agreementname="' + agreement.agreementNumber + '" ' +
                         'data-companyid="' + companyId + '" ' +
                         'data-swipeurl="companies/' + companyId + '/agreements/' + agreement.id + '">' +
-                        '<a href="#agreement-page?agreementid=' + agreement.id + '&companyid=' + companyId + '">' + agreement.agreementNumber + '</a></li>');
+                        '<a href="#agreement-page?agreementid=' + agreement.id + '&companyid=' + companyId + '">' + agreement.name + '</a></li>');
             }
 
             list.append(markup);
