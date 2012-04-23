@@ -9,7 +9,6 @@ import com.sun.jersey.spi.container.ContainerResponseFilter;
 
 public class ResponseCorsFilter implements ContainerResponseFilter {
 
-    @Override
     public ContainerResponse filter(ContainerRequest request, ContainerResponse containerResponse) {
 
         ResponseBuilder response = Response.fromResponse(containerResponse.getResponse());
