@@ -210,7 +210,7 @@ $(document).bind("mobileinit", function(){
     function getData(url, callback) {
         $.ajax({
             url: 'rest/' + url,
-            dataType: "jsonp",
+            dataType: "json",
             success : callback
         });
     }
