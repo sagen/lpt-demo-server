@@ -2,16 +2,20 @@
 <html>
   <head>
     <title>SpareBank 1 LPT</title>
+
+    <meta charset="utf-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Removes url bar and status bar in webkit browsers -->
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-    <meta charset="utf-8">
+
     <!--   This file should be changed as this is a test file, but it fixes a flicker issue in iOS, and should be in JQM 1.1.1 -->
     <link rel="stylesheet" href="http://jquerymobile.com/test/css/themes/default/jquery.mobile.css" />
     <link rel="stylesheet" href="css/sb1/sb1.css" />
     <link rel="stylesheet" href="css/jquery.swipeButton-1.2.css" />
     <link rel="stylesheet" href="css/style.css" />
+
     <!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
     <link rel="apple-touch-icon" href="img/sb1-icon.png">
     <link rel="icon" href="img/sb1-icon.png">
@@ -21,6 +25,7 @@
     <link rel="apple-touch-icon" sizes="114x114" href="img/sb1-icon-114x114-iphone-retina.png">
     <!-- For third-generation iPad with high-resolution Retina display: -->
     <link rel="apple-touch-icon" sizes="144x144" href="img/sb1-icon-144x144-ipad-retina.png">
+
     <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
     <script src="js/setup.js"></script>
     <!--   This file should be changed as this is a test file, but it fixes a flicker issue in iOS, and should be in JQM 1.1.1 -->
@@ -78,7 +83,6 @@
         <form action="/rest/agreement/" id="register-agreement-form" method="post" data-ajax="true">
           <label for="name" class="ui-hidden-accessible">Bedriftens navn:</label>
           <input type="text" name="name" id="agreement-name" value="" placeholder="Bedriftens navn"/>
-
 
           <button type="submit" id="register-agreement-submit-button" name="submit" value="submit-value">Send</button>
         </form>
