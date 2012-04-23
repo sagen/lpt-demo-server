@@ -47,9 +47,114 @@ $(document).bind("mobileinit", function(){
         }
     });
 
+    function populateCompanies(data , page) {
+        var list = $('#company-list');
+
+        getData('companies', function(data) {
+            list.empty();
+
+            for(var i = 0; i<data.length; i++) {
+                var id = data[i].id;
+                var name = data[i].name;
+                list.append('<li data-companyid="'+id+'" data-companyname="'+name+'" data-swipeurl="rest/companies/'+id+'">' +
+                        '<a href="#agreement-list-page?companyid='+id+'">'+name+'</a></li>');
+            }
+
+            list.listview('refresh');
+        });
+    }
+
+    function populateAgreements(urlObj, options , page) {
+        var companyId = getURLParameter("companyid", urlObj.href);
+        var list = $('#agreement-list');
+        var markup = "";
+
+        getData('companies/' + companyId + '/agreements', function(data) {
+            list.empty();
+
+            for(var i = 0; i<data.length; i++)
+            {
+                var agreement = data[i];
+
+                markup += ('<li data-agreementid="'+agreement.id+'"'+
+                        'data-agreementname="'+agreement.agreementNumber+'"'+
+                        'data-companyid="'+companyId+'"'+
+                        'data-swipeurl="rest/companies/'+companyId+'/agreements/'+agreement.id+'">'+
+                        '<a href="#agreement-page?agreementid='+agreement.id+'&companyid='+companyId+'">'+agreement.agreementNumber+'</a></li>');
+            }
+
+            list.append(markup);
+
+            page.page();
+
+            list.listview('refresh');
+
+            attachSwipeDeleteListener();
+
+            options.dataUrl = urlObj.href;
+
+            $.mobile.changePage(page, options);
+            $.mobile.hidePageLoadingMsg();
+        });
+    }
+
+
+    function populateAgreementPage(urlObj , options , page) {
+        var agreementId = getURLParameter("agreementid", urlObj.href);
+        var companyId = getURLParameter("companyid", urlObj.href);
+        $content = $(page).children(":jqmData(role=content)");
+
+        getData('companies/' + companyId + '/agreements/' + agreementId, function(agreement) {
+            var markup = '';
+            markup += '<h4>Avtaledetaljer for ' + agreement.name + '</h4>';
+            markup += '<p>Avtalenummer: ' + agreement.id + '</p>';
+            markup += '<p>Medlemmer: '+ agreement.members.join() + '</p>';
+            markup += '<a href="#members-page?companyid'+companyId+'=&agreementid='+agreementId+'" data-role="button">Vis medlemmer</a>';
+
+            $content.html(markup);
+
+            page.page();
+
+            options.dataUrl = urlObj.href;
+
+            $.mobile.changePage(page, options);
+            $.mobile.hidePageLoadingMsg();
+        });
+    }
+
+    function attachSwipeDeleteListener() {
+        $('#agreement-list li').swipeDelete({
+            btnTheme: 'e',
+            btnLabel: 'Slett',
+            btnClass: 'aSwipeButton',
+            click: function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                var url = $(e.target).closest('a.aSwipeButton').attr('href');
+                $(this).parents('li').slideUp();
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    success:function(data) {
+                        return false;
+                    }
+                });
+            }
+        });
+    }
+
     function getURL(data) {
         var url = $.mobile.path.parseUrl(data.toPage);
         return url;
+    }
+
+    function getURLParameter(name, hash) {
+        var parameter = RegExp(name + '=(.+?)(&|$)').exec(hash);
+        if (parameter) {
+          return decodeURI(parameter[1]);
+        } else {
+          return null;
+        }
     }
 
     function getPage(data) {
@@ -66,125 +171,11 @@ $(document).bind("mobileinit", function(){
         }
     }
 
-    function populateCompanies(data , page) {
-        var list = $('#company-list');
-
+    function getData(url, callback) {
         $.ajax({
-            url: 'rest/companies/',
+            url: 'rest/' + url,
             dataType: "json",
-            success : function(data) {
-                list.empty();
-
-                for(var i = 0; i<data.length; i++) {
-                    var id = data[i].id;
-                    var name = data[i].name;
-                    list.append('<li data-companyid="'+id+'" data-companyname="'+name+'" data-swipeurl="rest/companies/'+id+'">' +
-                            '<a href="#agreement-list-page?companyid='+id+'">'+name+'</a></li>');
-                }
-
-                list.listview('refresh');
-            }
+            success : callback
         });
     }
-
-    function populateAgreements(urlObj, options , page) {
-        var companyId = getURLParameter("companyid", urlObj.href);
-        var list = $('#agreement-list');
-        var markup = "";
-
-        $.ajax({
-            url: 'rest/companies/'+companyId+'/agreements',
-            dataType: "json",
-            success : function(data) {
-                list.empty();
-
-                for(var i = 0; i<data.length; i++)
-                {
-                    var agreement = data[i];
-
-                    markup += ('<li data-agreementid="'+agreement.id+'"'+
-                            'data-agreementname="'+agreement.agreementNumber+'"'+
-                            'data-companyid="'+companyId+'"'+
-                            'data-swipeurl="rest/companies/'+companyId+'/agreements/'+agreement.id+'">'+
-                            '<a href="#agreement-page?agreementid='+agreement.id+'&companyid='+companyId+'">'+agreement.agreementNumber+'</a></li>');
-                }
-
-                list.append(markup);
-
-                page.page();
-
-
-                list.listview('refresh');
-
-                attachSwipeDeleteListener();
-
-                options.dataUrl = urlObj.href;
-
-                $.mobile.changePage(page, options);
-                $.mobile.hidePageLoadingMsg();
-            }
-        });
-    }
-
-
-    function populateAgreementPage(urlObj , options , page) {
-        var agreementId = getURLParameter("agreementid", urlObj.href);
-        var companyId = getURLParameter("companyid", urlObj.href);
-        $content = $(page).children(":jqmData(role=content)");
-        var markup = "";
-
-        $.ajax({
-            url: 'rest/companies/'+companyId+'/agreements/'+agreementId,
-            dataType: "json",
-            success : function(data) {
-                markup += '<h4>Avtaledetaljer for ' + data.name + '</h4>';
-                markup += '<p>Avtalenummer: ' + data.id + '</p>';
-                markup += '<p>Medlemmer: '+data.members.join()+'</p>';
-
-                markup += '<a href="#members-page?companyid'+companyId+'=&agreementid='+agreementId+'" data-role="button">Vis medlemmer</a>';
-
-
-                $content.html(markup);
-
-                page.page();
-
-                options.dataUrl = urlObj.href;
-
-                $.mobile.changePage(page, options);
-                $.mobile.hidePageLoadingMsg();
-            }
-        });
-    }
-
-    function getURLParameter(name, hash) {
-        var parameter = RegExp('.*'+ name + '=(.+?)(&|$)').exec(hash);
-        if (parameter) {
-          return decodeURI(parameter[1]);
-        } else {
-          return null;
-        }
-    }
-
-    function attachSwipeDeleteListener() {
-        $('#agreement-list li').swipeDelete({
-            btnTheme: 'e',
-            btnLabel: 'Slett',
-            btnClass: 'aSwipeButton',
-            click: function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                var url = $(e.target).closest('a.aSwipeButton').attr('href');
-                console.log($(e.target));
-                $(this).parents('li').slideUp();
-                $.ajax({
-                    url: url,
-                    type: 'POST',
-                    success:function(data) {
-                        return false;
-                    }
-                });
-            }
-        });
-    }
-
 });
