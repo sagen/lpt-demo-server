@@ -17,12 +17,15 @@ $(document).bind("mobileinit", function(){
     $.mobile.listview.prototype.options.splitTheme   = "b";
     $.mobile.listview.prototype.options.countTheme   = "b";
     $.mobile.listview.prototype.options.filterTheme  = "b";
+    
+    
 
 
     // Listen for any attempts to call changePage().
     //  The call is intercepted and we fill the pages with data from server
     $(document).bind("pagebeforechange", function(e, data) {
         var url = getURL(data);
+        
 
         switch (getPage(data)) {
           case "frontpage":
@@ -32,7 +35,7 @@ $(document).bind("mobileinit", function(){
           case "agreement-list":
             $.mobile.showPageLoadingMsg();
             e.preventDefault();
-            populateAgreements(url, data, $('#agreement-list-page'));
+            populateAgreements(url, data, $('#agreement-list-page')); // should be data.options here as well? But it isn't working. The back button from agreement-list-page to welcome-page won't work.
             break;
 
           case "agreement":
@@ -46,7 +49,7 @@ $(document).bind("mobileinit", function(){
         }
     });
 
-    function populateCompanies(data, page) {
+    function populateCompanies() {
         var list = $('#company-list');
 
         getData('companies', function(data) {
@@ -59,7 +62,10 @@ $(document).bind("mobileinit", function(){
             }
 
             list.listview('refresh');
+            
         });
+        
+        
     }
 
     function populateAgreements(urlObj, options, page) {
