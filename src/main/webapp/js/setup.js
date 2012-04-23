@@ -32,7 +32,7 @@ $(document).bind("mobileinit", function(){
           case "agreement-list":
             $.mobile.showPageLoadingMsg();
             e.preventDefault();
-            populateAgreements(url, data.options, $('#agreement-list-page'));
+            populateAgreements(url, data, $('#agreement-list-page'));
             break;
 
           case "agreement":
