@@ -79,11 +79,13 @@ $(document).bind("mobileinit", function(){
 
                 for(var i = 0; i<data.length; i++)
                 {
-                    markup += ('<li data-agreementid="'+data[i].id+'"'+
-                            'data-agreementname="'+data[i].agreementNumber+'"'+
+                    var agreement = data[i];
+
+                    markup += ('<li data-agreementid="'+agreement.id+'"'+
+                            'data-agreementname="'+agreement.agreementNumber+'"'+
                             'data-companyid="'+companyId+'"'+
-                            'data-swipeurl="rest/companies/'+companyId+'/agreements/'+data[i].id+'">'+
-                            '<a href="#agreement-page?agreementid='+data[i].id+'&companyid='+companyId+'">'+data[i].agreementNumber+'</a></li>');
+                            'data-swipeurl="rest/companies/'+companyId+'/agreements/'+agreement.id+'">'+
+                            '<a href="#agreement-page?agreementid='+agreement.id+'&companyid='+companyId+'">'+agreement.agreementNumber+'</a></li>');
                 }
 
                 list.append(markup);
