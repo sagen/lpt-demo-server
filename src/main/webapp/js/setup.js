@@ -160,7 +160,8 @@ $(document).bind("mobileinit", function(){
                     type: 'POST',
                     success:function(data) {
                         return false;
-                    }});
+                    }
+                });
             }
         });
     }
