@@ -49,4 +49,11 @@ public class DataStore {
     private static <T extends Entity> T notFoundException(Class<T> clazz) throws NotFoundException {
         throw new NotFoundException(format("%s not found", clazz.getSimpleName()));
     }
+
+    public static void deleteMember(int companyId, int agreementId, int memberId) {
+        if(agreement(companyId, agreementId).members.remove(memberId) == null){
+            notFoundException(Member.class);
+        }
+
+    }
 }
