@@ -11,13 +11,12 @@ $(document).bind("mobileinit", function(){
 
 
     // Listviews
-    $.mobile.listview.prototype.options.headerTheme = "b";  // Header for nested lists
-    $.mobile.listview.prototype.options.theme           = "b";  // List items / content
-    $.mobile.listview.prototype.options.dividerTheme    = "b";  // List divider
-
+    $.mobile.listview.prototype.options.headerTheme  = "b";  // Header for nested lists
+    $.mobile.listview.prototype.options.theme        = "b";  // List items / content
+    $.mobile.listview.prototype.options.dividerTheme = "b";  // List divider
     $.mobile.listview.prototype.options.splitTheme   = "b";
     $.mobile.listview.prototype.options.countTheme   = "b";
-    $.mobile.listview.prototype.options.filterTheme = "b";
+    $.mobile.listview.prototype.options.filterTheme  = "b";
 
 
     // Listen for any attempts to call changePage().
