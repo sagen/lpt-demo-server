@@ -42,6 +42,12 @@ $(document).bind("mobileinit", function(){
             e.preventDefault();
             populateAgreementPage(url, data.options, $('#agreement-page'));
             break;
+            
+          case "agreement-form":
+            $.mobile.showPageLoadingMsg();
+            e.preventDefault();
+            populateAgreementForm(url, data.options, $('#register-agreement-form-page'));
+            break;
 
           default:
             break;
@@ -124,6 +130,31 @@ $(document).bind("mobileinit", function(){
             $.mobile.hidePageLoadingMsg();
         });
     }
+    
+    function populateAgreementForm(urlObj, options, page) {
+        var agreementId = getURLParameter("agreementid", urlObj.href);
+        var companyId = getURLParameter("companyid", urlObj.href);
+        var selectBox = $('#select-agreement-type');
+        var selectOptions ="";
+        getData('companies/0/agreements/types' , function(agreementType) {
+            
+            for(var i = 0; i<agreementType.length; i++)
+            	{
+            	 selectOptions += '<option value="' + agreementType[i] + '">' + agreementType[i] + '</option>';
+            	}
+            
+            selectBox.html(selectOptions);
+           
+            page.page();
+
+            selectBox.selectmenu();
+            
+            options.dataUrl = urlObj.href;
+
+            $.mobile.changePage(page, options);
+            $.mobile.hidePageLoadingMsg();
+        });
+    }
 
     function attachSwipeDeleteListener() {
         $('#agreement-list li').swipeDelete({
@@ -168,6 +199,8 @@ $(document).bind("mobileinit", function(){
               return "agreement";
             } else if (url.hash.search(/^#agreement-list-page/) !== -1) {
               return "agreement-list";
+            } else if (url.hash.search(/^#register-agreement-form-page/) !== -1) {
+              return "agreement-form";
             }
         } else if ($(data.toPage)[0]==$('#welcome-page')[0]) {
             return "frontpage";
