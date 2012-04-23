@@ -20,30 +20,51 @@ $(document).bind("mobileinit", function(){
     $.mobile.listview.prototype.options.filterTheme = "b";
 
 
-
     // Listen for any attempts to call changePage().
     //  The call is intercepted and we fill the pages with data from server
     $(document).bind( "pagebeforechange", function( e, data ) {
-        if ( typeof data.toPage === "string" ) {
+        var url = getUrl(data);
 
-            var url = $.mobile.path.parseUrl( data.toPage );
-
-            if ( url.hash.search(/^#agreement-page/) !== -1 ) {
-                $.mobile.showPageLoadingMsg();
-                e.preventDefault();
-                populateAgreementPage( url, data.options , $('#agreement-page'));
-
-            } else if ( url.hash.search(/^#agreement-list-page/) !== -1 ) {
-                $.mobile.showPageLoadingMsg();
-                e.preventDefault();
-                populateAgreements( url, data , $('#agreement-list-page'));
-            }
-
-        } else if($(data.toPage)[0]==$('#welcome-page')[0]){
+        switch (getPage(data)) {
+          case "frontpage":
             populateCompanies();
-        }
+            break;
 
+          case "agreement-list":
+            $.mobile.showPageLoadingMsg();
+            e.preventDefault();
+            populateAgreements(url, data , $('#agreement-list-page'));
+            break;
+
+          case "agreement":
+            $.mobile.showPageLoadingMsg();
+            e.preventDefault();
+            populateAgreementPage(url, data.options , $('#agreement-page'));
+            break;
+
+          default:
+            break;
+        }
     });
+
+    function getUrl(data) {
+        var url = $.mobile.path.parseUrl( data.toPage );
+        return url;
+    }
+
+    function getPage(data) {
+      if (typeof data.toPage === "string") {
+            var url = getUrl(data);
+
+            if (url.hash.search(/^#agreement-page/) !== -1) {
+              return "agreement";
+            } else if (url.hash.search(/^#agreement-list-page/) !== -1) {
+              return "agreement-list";
+            }
+        } else if ($(data.toPage)[0]==$('#welcome-page')[0]) {
+            return "frontpage";
+        }
+    }
 
     function populateCompanies(data , page){
         var list = $('#company-list');
