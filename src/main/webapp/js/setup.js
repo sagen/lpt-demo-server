@@ -1,6 +1,6 @@
 $(document).bind("mobileinit", function(){
 	$.extend($.mobile,{
-		defaultPageTransition: 'fade', //or slide?
+		defaultPageTransition: 'slidefade', //or slide?
 		defaultDialogTransition: 'pop',
 	  });
 	
@@ -21,8 +21,7 @@ $(document).bind("mobileinit", function(){
     
     
 	 // Listen for any attempts to call changePage().
-     // This one checks if the requested page is a company page,
-     // and fires a call to getCompany with the specified id in the URL
+    //  The call is intercepted and we fill the pages with data from server
     $(document).bind( "pagebeforechange", function( e, data ) {
     	if ( typeof data.toPage === "string" ) {
 
@@ -36,22 +35,26 @@ $(document).bind("mobileinit", function(){
     		} else if ( u.hash.search(/^#agreement-list-page/) !== -1 ) {
     			$.mobile.showPageLoadingMsg();
     			e.preventDefault();
-    			populateAgreements( u, data , $('#agreement-list-page') , $('#agreement-list'));
+    			populateAgreements( u, data , $('#agreement-list-page'));
     		} 
 
     	}else if($(data.toPage)[0]==$('#welcome-page')[0]){
-    		populateCompanies( u, data.options , $('#welcome-page'), $('#company-list'));
+    		populateCompanies();
     	}
 
     });
     
     
-	function populateCompanies( u, data , page, list){
-		list.empty();
+	function populateCompanies(data , page){
+		var page = $('#welcome-page');
+		var list = $('#company-list');
+		
 		$.ajax({
 			url: '/rest/companies/',
 			dataType: "json",
 			success : function(data){
+				list.empty();
+				
 				for(var i = 0; i<data.length; i++)
 				    {
 					var id = data[i].id;
@@ -60,30 +63,29 @@ $(document).bind("mobileinit", function(){
 							'<a href="#agreement-list-page?companyid='+id+'">'+name+'</a></li>');
 				    }  
 
-				page.page();
-				
-				list.listview('refresh'); //Might need to restyle list after init
+				list.listview('refresh');
 			}
 		});
 	}
 
-	function populateAgreements( urlObj, options , page, list){
+	function populateAgreements( urlObj, options , page){
 	var companyId = getURLParameter("companyid", urlObj.href);
+	var list = $('#agreement-list');
+	var markup = "";
 	
 	$.ajax({
 		url: '/rest/companies/'+companyId+'/agreements',
 		dataType: "json",
 		success : function(data){
 			list.empty();
-			markup = "";
 			
 			for(var i = 0; i<data.length; i++)
 			{
 				markup += ('<li data-agreementid="'+data[i].id+'"'+
-						'data-agreementname="'+data[i].name+'"'+
+						'data-agreementname="'+data[i].agreementNumber+'"'+
 						'data-companyid="'+companyId+'"'+
 						'data-swipeurl="rest/companies/'+companyId+'/agreements/'+data[i].id+'">'+
-						'<a href="#agreement-page?agreementid='+data[i].id+'&companyid='+companyId+'">'+data[i].name+'</a></li>');
+						'<a href="#agreement-page?agreementid='+data[i].id+'&companyid='+companyId+'">'+data[i].agreementNumber+'</a></li>');
 			}  
 
 			list.append(markup);
@@ -108,9 +110,6 @@ $(document).bind("mobileinit", function(){
 		var agreementId = getURLParameter("agreementid", urlObj.href);
 		var companyId = getURLParameter("companyid", urlObj.href);
 		$content = $(page).children( ":jqmData(role=content)" );
-		
-		// The markup we are going to inject into the content
-		// area of the page.
 		var markup = "";
 		
 		$.ajax({

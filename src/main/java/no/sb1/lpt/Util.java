@@ -1,16 +1,12 @@
 package no.sb1.lpt;
 
-import com.sun.jersey.api.ParamException;
-import no.sb1.lpt.model.Entity;
+import static java.util.Collections.synchronizedMap;
+import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 
-import javax.ws.rs.core.MultivaluedMap;
 import java.util.HashMap;
 import java.util.Map;
 
-import static java.lang.Integer.parseInt;
-import static java.lang.Long.parseLong;
-import static java.util.Collections.synchronizedMap;
-import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
+import no.sb1.lpt.model.Entity;
 
 public class Util {
     public static final String JSON_CONTENT_TYPE = APPLICATION_JSON + ";charset=UTF-8";

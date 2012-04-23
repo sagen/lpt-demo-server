@@ -72,7 +72,7 @@ public class DataGenerator {
         return generator.nextInt(6) + 16;
     }
     private static int agreementNumber(){
-        return generator.nextInt();
+        return generator.nextInt(Integer.MAX_VALUE);
     }
     private static Agreement.Status status(){
         return generator.nextBoolean() ? ACTIVE : SUSPENDED;

@@ -1,19 +1,21 @@
 package no.sb1.lpt.resources;
 
 
-import no.sb1.lpt.model.Member;
-import no.sb1.lpt.repository.DataStore;
-
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.MultivaluedMap;
-import java.util.Collection;
-import java.util.Date;
-
-import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
-import static no.sb1.lpt.Util.*;
+import static no.sb1.lpt.Util.JSON_CONTENT_TYPE;
 import static no.sb1.lpt.repository.DataStore.agreement;
 import static no.sb1.lpt.repository.DataStore.member;
+
+import java.util.Collection;
+
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+
+import no.sb1.lpt.model.Member;
+import no.sb1.lpt.repository.DataStore;
 
 @Path("/companies/{companyId}/agreements/{agreementId}/members/")
 @Produces(JSON_CONTENT_TYPE)
