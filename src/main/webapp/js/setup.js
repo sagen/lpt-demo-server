@@ -26,17 +26,17 @@ $(document).bind("mobileinit", function(){
     $(document).bind( "pagebeforechange", function( e, data ) {
         if ( typeof data.toPage === "string" ) {
 
-            var u = $.mobile.path.parseUrl( data.toPage );
+            var url = $.mobile.path.parseUrl( data.toPage );
 
-            if ( u.hash.search(/^#agreement-page/) !== -1 ) {
+            if ( url.hash.search(/^#agreement-page/) !== -1 ) {
                 $.mobile.showPageLoadingMsg();
                 e.preventDefault();
-                populateAgreementPage( u, data.options , $('#agreement-page'));
+                populateAgreementPage( url, data.options , $('#agreement-page'));
 
-            } else if ( u.hash.search(/^#agreement-list-page/) !== -1 ) {
+            } else if ( url.hash.search(/^#agreement-list-page/) !== -1 ) {
                 $.mobile.showPageLoadingMsg();
                 e.preventDefault();
-                populateAgreements( u, data , $('#agreement-list-page'));
+                populateAgreements( url, data , $('#agreement-list-page'));
             }
 
         } else if($(data.toPage)[0]==$('#welcome-page')[0]){
