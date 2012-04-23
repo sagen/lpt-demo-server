@@ -148,35 +148,24 @@ $(document).bind("mobileinit", function(){
     	var agreementId = getURLParameter("agreementid", urlObj.href);
     	var companyId = getURLParameter("companyid", urlObj.href);
     	$content = $(page).children(":jqmData(role=content)");
-
     	getData('companies/' + companyId + '/agreements/' + agreementId, function(agreement) {
     		var header = '<h4>' + agreement.type + ' - ' + agreement.agreementNumber + '</h4>';
     		var details = '<p>Medlemmer: ' +  agreement.members.join() + '</p>'; 
     		var list = $('#member-list');
     		list.html("");
     		list.empty();
-
-    		for(var i = 0; i < agreement.members.length; i++) {
-    			getData('companies/' + companyId + '/agreements/' + agreementId + '/members/' + agreement.members[i], function(member)
-    					{
-    				var memberLi = '<li><a href="#member-page?companyid=' + companyId + '&agreementid=' + agreementId + '&memberid=' + member.id + '">' + member.name + '</a></li>';  
-    				list.append(memberLi);
-    					});
-
-    			if(i === agreement.members.length-1) {
-    				page.page();
-    				$('#member-list').listview('refresh');
-    				$('#agreement-header').html(header);
-    				$('#agreement-details p').html(details);
-
-    				options.dataUrl = urlObj.href;
-
-    				
-    			}
-    		}
-
-    		$.mobile.changePage(page, options);
-			$.mobile.hidePageLoadingMsg();
+            var members = getData('companies/' + companyId + '/agreements/' + agreementId + '/members', function(members){
+                $.each(members, function(i, member){
+                    list.append('<li><a href="#member-page?companyid=' + companyId + '&agreementid=' + agreementId + '&memberid=' + member.id + '">' + member.name + '</a></li>');
+                });
+                $('#agreement-header').html(header);
+                $('#agreement-details p').html(details);
+                page.page();
+                $('#member-list').listview('refresh');
+                options.dataUrl = urlObj.href;
+                $.mobile.changePage(page, options);
+                $.mobile.hidePageLoadingMsg();
+            });
     	});
     }
     
