@@ -118,8 +118,7 @@ $(document).bind("mobileinit", function(){
         getData('companies/' + companyId + '/agreements', function(data) {
             list.empty();
 
-            for(var i = 0; i<data.length; i++)
-            {
+            for(var i = 0; i<data.length; i++) {
                 var agreement = data[i];
 
                 markup += ('<li data-agreementid="' + agreement.id + '" ' +
@@ -157,16 +156,14 @@ $(document).bind("mobileinit", function(){
     		list.html("");
     		list.empty();
 
-    		for(var i = 0; i < agreement.members.length; i++)
-    		{
+    		for(var i = 0; i < agreement.members.length; i++) {
     			getData('companies/' + companyId + '/agreements/' + agreementId + '/members/' + agreement.members[i], function(member)
     					{
     				var memberLi = '<li><a href="#member-page?companyid=' + companyId + '&agreementid=' + agreementId + '&memberid=' + member.id + '">' + member.name + '</a></li>';  
     				list.append(memberLi);
     					});
 
-    			if(i === agreement.members.length-1)
-    			{
+    			if(i === agreement.members.length-1) {
     				page.page();
     				$('#member-list').listview('refresh');
     				$('#agreement-header').html(header);
@@ -244,8 +241,7 @@ $(document).bind("mobileinit", function(){
         
     }
 
-   function submitMemberForm(companyId, agreementId)
-   {
+   function submitMemberForm(companyId, agreementId) {
 	   var member = {};
 	   member.fnr = $('#register-member-form #ssn').val();
 	   member.name = $('#register-member-form #name').val();
