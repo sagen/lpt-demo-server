@@ -14,7 +14,8 @@ public class Agreement extends Entity {
 
     @JsonIgnore
     public final Map<Integer, Member> members;
-
+    
+    public String name;
     public Integer agreementNumber;
     public Status status;
     public Date registered;
@@ -24,8 +25,9 @@ public class Agreement extends Entity {
         members = map();
     }
 
-    public Agreement(Map<Integer, Member> members, Integer agreementNumber, Status status, Date registered, Integer minimumAge) {
+    public Agreement(Map<Integer, Member> members, String name, Integer agreementNumber, Status status, Date registered, Integer minimumAge) {
         this.members = members;
+        this.name = name;
         this.agreementNumber = agreementNumber;
         this.status = status;
         this.registered = registered;
@@ -34,6 +36,7 @@ public class Agreement extends Entity {
 
     public Agreement copyFrom(Agreement other){
         agreementNumber = nullValue(other.agreementNumber, agreementNumber);
+        name = nullValue(other.name, name);
         status = nullValue(other.status, status);
         registered = nullValue(other.registered, registered);
         status = nullValue(other.status, status);

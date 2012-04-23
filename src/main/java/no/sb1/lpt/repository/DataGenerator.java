@@ -20,7 +20,7 @@ public class DataGenerator {
     }
 
     private static Agreement agreement(){
-        return new Agreement(members(), agreementNumber(), status(), registered(),minimumAge());
+        return new Agreement(members(), agreementName(), agreementNumber(), status(), registered(),minimumAge());
     }
 
     static Map<Integer, Company> data() {
@@ -54,6 +54,10 @@ public class DataGenerator {
         return rand(new String[]{"22048345763", "24077045801", "24077035253", "10107247098", "10107239540", "10107233860",
                 "28107944879", "31107948999", "28107948033", "14013946044", "25013947352", "15013947462", "02013948197",
                 "08013945811", "01013943423", "22013943838"});
+    }
+    
+    private static String agreementName() {
+        return rand(new String[]{"Innskuddspensjon med avkastningsgaranti", "Kollektiv livrente med investeringsvalg", "Innskuddspensjon med investeringsvalg"});
     }
 
     private static int salary() {

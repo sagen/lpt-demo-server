@@ -82,10 +82,10 @@ $(document).bind("mobileinit", function(){
 			for(var i = 0; i<data.length; i++)
 			{
 				markup += ('<li data-agreementid="'+data[i].id+'"'+
-						'data-agreementname="'+data[i].agreementNumber+'"'+
+						'data-agreementname="'+data[i].name+'"'+
 						'data-companyid="'+companyId+'"'+
 						'data-swipeurl="rest/companies/'+companyId+'/agreements/'+data[i].id+'">'+
-						'<a href="#agreement-page?agreementid='+data[i].id+'&companyid='+companyId+'">'+data[i].agreementNumber+'</a></li>');
+						'<a href="#agreement-page?agreementid='+data[i].id+'&companyid='+companyId+'">'+data[i].name+' ('+data[i].agreementNumber+')</a></li>');
 			}  
 
 			list.append(markup);
