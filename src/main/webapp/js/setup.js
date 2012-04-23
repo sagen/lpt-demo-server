@@ -51,6 +51,12 @@ $(document).bind("mobileinit", function(){
             e.preventDefault();
             populateMemberForm(url, data.options, $('#register-member-form-page'));
             break;
+            
+          case "member-page":
+              $.mobile.showPageLoadingMsg();
+              e.preventDefault();
+              populateMemberPage(url, data.options, $('#member-page'));
+              break;
 
           default:
             break;
@@ -134,10 +140,52 @@ $(document).bind("mobileinit", function(){
         });
     }
     
+    function populateMemberPage(urlObj, options, page) {
+    	var agreementId = getURLParameter("agreementid", urlObj.href);
+    	var companyId = getURLParameter("companyid", urlObj.href);
+    	var memberId = getURLParameter("memberid", urlObj.href);
+    	var header = $('#member-header');
+    	var details = $('#member-details');
+    	var editButton = $("#edit-member-button");
+    	
+    	getData('companies/' + companyId + '/agreements/' + agreementId + '/members/' + memberId, function(member) {
+    		var detailsText = '<p>Lønn: ' +  member.salary + ' kr</p>'; 
+
+    		header.html(member.name);
+    		details.html(detailsText);
+    		editButton.attr('href', "#register-member-form-page?edit=true&companyid=" + companyId + "&agreementid=" + agreementId + "&memberid=" +member.id);
+    		
+    		page.page();
+
+    		options.dataUrl = urlObj.href;
+
+    		$.mobile.changePage(page, options);
+    		$.mobile.hidePageLoadingMsg();
+    	});
+    }
+    
     function populateMemberForm(urlObj, options, page) {
         var agreementId = getURLParameter("agreementid", urlObj.href);
         var companyId = getURLParameter("companyid", urlObj.href);
+        var isEdit = getURLParameter("edit", urlObj.href);
         var submitButton = $('#register-member-submit-button');
+        var deleteButton = $('#member-delete-button');
+
+        if(isEdit !== 'true'){
+        	deleteButton.hide();
+        }else {
+        	var memberId = getURLParameter("memberid", urlObj.href);
+        	
+        	getData('companies/' + companyId + '/agreements/' + agreementId + '/members/' + memberId, function(member) {
+        		 $('#register-member-form #ssn').val(member.fnr);
+        		 $('#register-member-form #name').val(member.name);
+        		 $('#register-member-form #salary').val(member.salary);
+        	});
+        	
+        	deleteButton.click(function(){
+        		deleteMember(companyId, agreementId, memberId);
+        	})
+        }
         
         submitButton.click(function(){
         	submitMemberForm(companyId, agreementId)
@@ -168,7 +216,7 @@ $(document).bind("mobileinit", function(){
            data: JSON.stringify(member),
            dataType: "json",
            success : function(createdmember){
-        	   console.log("posted");
+        	   $.mobile.changePage('#member-page?companyid=' + companyId + '&agreementid' + agreementId + '&memberid' + createdmember.id);
            },
            error: function(){
         	   
@@ -176,6 +224,21 @@ $(document).bind("mobileinit", function(){
        });
 	   
    }
+   
+   function deleteMember(companyId, agreementId, memberId){
+	   $.ajax({
+           url: 'rest/companies/' + companyId + "/agreements/" + agreementId + "/members/" + memberId,
+           type : 'Delete',
+           success : function(createdmember){
+        	    console.log("deleted")
+           },
+           error: function(){
+        	   
+           }
+       });
+   }
+   
+   
 
     function attachSwipeDeleteListener() {
         $('#agreement-list li').swipeDelete({
@@ -222,6 +285,8 @@ $(document).bind("mobileinit", function(){
               return "agreement-list";
             } else if (url.hash.search(/^#register-member-form-page/) !== -1) {
               return "member-form";
+            }else if (url.hash.search(/^#member-page/) !== -1) {
+              return "member-page";
             }
         } else if ($(data.toPage)[0]==$('#welcome-page')[0]) {
             return "frontpage";

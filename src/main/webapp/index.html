@@ -96,6 +96,20 @@
         <ul data-role="listview" id="member-list" data-inset="true"></ul>
       </div>
     </div>
+    
+    <!-- MEMBER PAGE -->
+    <div id="member-page" data-role="page" data-theme="a">
+
+      <div data-role="header">
+        <img src="img/SB1_header_logo.png" class="logo" />
+        <a href="#" id="edit-member-button" data-icon="gear" class="ui-btn-right">Endre</a>
+      </div>
+
+      <div data-role="content">
+        <h4 id="member-header"></h4>
+        <p id="member-details"></p>
+      </div>
+    </div>
 
     <!-- FORM PAGE -->
     <div id="register-member-form-page" data-role="page" data-theme="a">
@@ -120,8 +134,10 @@
 					<input type="number" name="salary" id="salary" value="" placeholder="Lønn"/>
 				</div>
         </form>
+        <a href="#" id="member-delete-button" data-role="button" data-icon="delete" data-theme="e">Meld ut bruker fra avtalen</a>
       </div>
     </div>
+    
 
     <!--   <div id="popup" data-role="page"  data-theme="a"> -->
       <!--     <div data-role="header"> -->
