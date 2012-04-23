@@ -49,7 +49,7 @@ $(document).bind("mobileinit", function(){
         var list = $('#company-list');
 
         $.ajax({
-            url: '/rest/companies/',
+            url: 'rest/companies/',
             dataType: "json",
             success : function(data){
                 list.empty();
@@ -72,7 +72,7 @@ $(document).bind("mobileinit", function(){
         var markup = "";
 
         $.ajax({
-            url: '/rest/companies/'+companyId+'/agreements',
+            url: 'rest/companies/'+companyId+'/agreements',
             dataType: "json",
             success : function(data){
                 list.empty();
@@ -111,7 +111,7 @@ $(document).bind("mobileinit", function(){
         var markup = "";
 
         $.ajax({
-            url: '/rest/companies/'+companyId+'/agreements/'+agreementId,
+            url: 'rest/companies/'+companyId+'/agreements/'+agreementId,
             dataType: "json",
             success : function(data){
                 markup += '<h4>Avtaledetaljer for ' + data.name + '</h4>';
