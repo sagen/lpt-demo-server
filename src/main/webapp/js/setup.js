@@ -64,23 +64,23 @@ $(document).bind("mobileinit", function(){
     });
 
     function showMap(urlObj, options, page) {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-          var latitude = position.coords.latitude;
-          var longitude = position.coords.longitude;
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var latitude = position.coords.latitude;
+                var longitude = position.coords.longitude;
 
-          displayMap(latitude, longitude);
+                displayMap(latitude, longitude);
 
-          page.page();
+                page.page();
 
-          options.dataUrl = urlObj.href;
+                options.dataUrl = urlObj.href;
 
-          $.mobile.changePage(page, options);
-          $.mobile.hidePageLoadingMsg();
-        }, function() {
-          alert("getlocation failed");
-        });
-      }
+                $.mobile.changePage(page, options);
+                $.mobile.hidePageLoadingMsg();
+            }, function() {
+                alert("getlocation failed");
+            });
+        }
     }
 
     function populateCompanies() {
@@ -265,39 +265,39 @@ $(document).bind("mobileinit", function(){
     }
 
     function displayMap(latitude, longitude) {
-      var start = new google.maps.LatLng(59.912083, 10.750615);
-      var end = new google.maps.LatLng(latitude, longitude);
-      var directionsDisplay = new google.maps.DirectionsRenderer();
+        var start = new google.maps.LatLng(59.912083, 10.750615);
+        var end = new google.maps.LatLng(latitude, longitude);
+        var directionsDisplay = new google.maps.DirectionsRenderer();
 
-      directionsDisplay.setMap(getMap());
+        directionsDisplay.setMap(getMap());
 
-      addDirections(directionsDisplay, start, end);
+        addDirections(directionsDisplay, start, end);
     }
 
     function getMap() {
-      var oslo = new google.maps.LatLng(59.904719, 10.753341);
-      var myOptions = {
-        zoom:16,
-        mapTypeId: google.maps.MapTypeId.ROADMAP,
-        center: oslo
-      };
+        var oslo = new google.maps.LatLng(59.904719, 10.753341);
+        var myOptions = {
+            zoom:16,
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            center: oslo
+        };
 
-      return new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+        return new google.maps.Map(document.getElementById("map_canvas"), myOptions);
     }
 
     function addDirections(map, start, end) {
-      var directionsService = new google.maps.DirectionsService();
-      var request = {
-        origin: start,
-        destination: end,
-        travelMode: google.maps.TravelMode.WALKING,
-        unitSystem: google.maps.UnitSystem.METRIC
-      };
+        var directionsService = new google.maps.DirectionsService();
+        var request = {
+            origin: start,
+            destination: end,
+            travelMode: google.maps.TravelMode.WALKING,
+            unitSystem: google.maps.UnitSystem.METRIC
+        };
 
-      directionsService.route(request, function(result, status) {
-        if (status == google.maps.DirectionsStatus.OK) {
-          map.setDirections(result);
-        }
-      });
+        directionsService.route(request, function(result, status) {
+            if (status == google.maps.DirectionsStatus.OK) {
+                map.setDirections(result);
+            }
+        });
     }
 });
