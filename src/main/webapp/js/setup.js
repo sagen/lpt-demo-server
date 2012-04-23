@@ -53,7 +53,7 @@ $(document).bind("mobileinit", function(){
 
             for(var i = 0; i<data.length; i++) {
                 var company = data[i];
-                list.append('<li data-companyid="' + company.id + '" data-companyname="' + company.name + '" data-swipeurl="rest/companies/' + company.id + '">' +
+                list.append('<li data-companyid="' + company.id + '" data-companyname="' + company.name + '" data-swipeurl="companies/' + company.id + '">' +
                         '<a href="#agreement-list-page?companyid=' + company.id + '">' + company.name + '</a></li>');
             }
 
@@ -76,7 +76,7 @@ $(document).bind("mobileinit", function(){
                 markup += ('<li data-agreementid="' + agreement.id + '" ' +
                         'data-agreementname="' + agreement.agreementNumber + '" ' +
                         'data-companyid="' + companyId + '" ' +
-                        'data-swipeurl="rest/companies/' + companyId + '/agreements/' + agreement.id + '">' +
+                        'data-swipeurl="companies/' + companyId + '/agreements/' + agreement.id + '">' +
                         '<a href="#agreement-page?agreementid=' + agreement.id + '&companyid=' + companyId + '">' + agreement.agreementNumber + '</a></li>');
             }
 
@@ -130,7 +130,7 @@ $(document).bind("mobileinit", function(){
                 var url = $(e.target).closest('a.aSwipeButton').attr('href');
                 $(this).parents('li').slideUp();
                 $.ajax({
-                    url: url,
+                    url: 'rest/' + url,
                     type: 'POST',
                     success:function(data) {
                         return false;
