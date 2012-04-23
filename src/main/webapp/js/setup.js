@@ -11,13 +11,12 @@ $(document).bind("mobileinit", function(){
 
 
     // Listviews
-    $.mobile.listview.prototype.options.headerTheme = "b";  // Header for nested lists
-    $.mobile.listview.prototype.options.theme           = "b";  // List items / content
-    $.mobile.listview.prototype.options.dividerTheme    = "b";  // List divider
-
+    $.mobile.listview.prototype.options.headerTheme  = "b";  // Header for nested lists
+    $.mobile.listview.prototype.options.theme        = "b";  // List items / content
+    $.mobile.listview.prototype.options.dividerTheme = "b";  // List divider
     $.mobile.listview.prototype.options.splitTheme   = "b";
     $.mobile.listview.prototype.options.countTheme   = "b";
-    $.mobile.listview.prototype.options.filterTheme = "b";
+    $.mobile.listview.prototype.options.filterTheme  = "b";
 
 
     // Listen for any attempts to call changePage().
@@ -33,13 +32,13 @@ $(document).bind("mobileinit", function(){
           case "agreement-list":
             $.mobile.showPageLoadingMsg();
             e.preventDefault();
-            populateAgreements(url, data , $('#agreement-list-page'));
+            populateAgreements(url, data, $('#agreement-list-page'));
             break;
 
           case "agreement":
             $.mobile.showPageLoadingMsg();
             e.preventDefault();
-            populateAgreementPage(url, data.options , $('#agreement-page'));
+            populateAgreementPage(url, data.options, $('#agreement-page'));
             break;
 
           default:
@@ -47,7 +46,7 @@ $(document).bind("mobileinit", function(){
         }
     });
 
-    function populateCompanies(data , page) {
+    function populateCompanies(data, page) {
         var list = $('#company-list');
 
         getData('companies', function(data) {
@@ -56,15 +55,15 @@ $(document).bind("mobileinit", function(){
             for(var i = 0; i<data.length; i++) {
                 var id = data[i].id;
                 var name = data[i].name;
-                list.append('<li data-companyid="'+id+'" data-companyname="'+name+'" data-swipeurl="rest/companies/'+id+'">' +
-                        '<a href="#agreement-list-page?companyid='+id+'">'+name+'</a></li>');
+                list.append('<li data-companyid="' + id + '" data-companyname="' + name + '" data-swipeurl="rest/companies/' + id + '">' +
+                        '<a href="#agreement-list-page?companyid=' + id + '">' + name + '</a></li>');
             }
 
             list.listview('refresh');
         });
     }
 
-    function populateAgreements(urlObj, options , page) {
+    function populateAgreements(urlObj, options, page) {
         var companyId = getURLParameter("companyid", urlObj.href);
         var list = $('#agreement-list');
         var markup = "";
@@ -76,11 +75,11 @@ $(document).bind("mobileinit", function(){
             {
                 var agreement = data[i];
 
-                markup += ('<li data-agreementid="'+agreement.id+'"'+
-                        'data-agreementname="'+agreement.agreementNumber+'"'+
-                        'data-companyid="'+companyId+'"'+
-                        'data-swipeurl="rest/companies/'+companyId+'/agreements/'+agreement.id+'">'+
-                        '<a href="#agreement-page?agreementid='+agreement.id+'&companyid='+companyId+'">'+agreement.agreementNumber+'</a></li>');
+                markup += ('<li data-agreementid="' + agreement.id + '" ' +
+                        'data-agreementname="' + agreement.agreementNumber + '" ' +
+                        'data-companyid="' + companyId + '" ' +
+                        'data-swipeurl="rest/companies/' + companyId + '/agreements/' + agreement.id + '">' +
+                        '<a href="#agreement-page?agreementid=' + agreement.id + '&companyid=' + companyId + '">' + agreement.agreementNumber + '</a></li>');
             }
 
             list.append(markup);
@@ -99,7 +98,7 @@ $(document).bind("mobileinit", function(){
     }
 
 
-    function populateAgreementPage(urlObj , options , page) {
+    function populateAgreementPage(urlObj, options, page) {
         var agreementId = getURLParameter("agreementid", urlObj.href);
         var companyId = getURLParameter("companyid", urlObj.href);
         $content = $(page).children(":jqmData(role=content)");
@@ -108,8 +107,8 @@ $(document).bind("mobileinit", function(){
             var markup = '';
             markup += '<h4>Avtaledetaljer for ' + agreement.name + '</h4>';
             markup += '<p>Avtalenummer: ' + agreement.id + '</p>';
-            markup += '<p>Medlemmer: '+ agreement.members.join() + '</p>';
-            markup += '<a href="#members-page?companyid'+companyId+'=&agreementid='+agreementId+'" data-role="button">Vis medlemmer</a>';
+            markup += '<p>Medlemmer: ' +  agreement.members.join() + '</p>';
+            markup += '<a href="#members-page?companyid' + companyId + '=&agreementid=' + agreementId + '" data-role="button">Vis medlemmer</a>';
 
             $content.html(markup);
 
