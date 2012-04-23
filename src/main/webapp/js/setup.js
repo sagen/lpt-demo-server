@@ -2,7 +2,7 @@ $(document).bind("mobileinit", function(){
 
     $.extend($.mobile,{
         defaultPageTransition: 'slidefade', //or slide?
-        defaultDialogTransition: 'pop',
+        defaultDialogTransition: 'pop'
     });
 
 
