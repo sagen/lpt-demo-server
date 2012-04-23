@@ -118,26 +118,40 @@ $(document).bind("mobileinit", function(){
 
 
     function populateAgreementPage(urlObj, options, page) {
-        var agreementId = getURLParameter("agreementid", urlObj.href);
-        var companyId = getURLParameter("companyid", urlObj.href);
-        $content = $(page).children(":jqmData(role=content)");
+    	var agreementId = getURLParameter("agreementid", urlObj.href);
+    	var companyId = getURLParameter("companyid", urlObj.href);
+    	$content = $(page).children(":jqmData(role=content)");
 
-        getData('companies/' + companyId + '/agreements/' + agreementId, function(agreement) {
-            var header = '<h4>' + agreement.type + ' - ' + agreement.agreementNumber + '</h4>';
-            var details = '<p>Medlemmer: ' +  agreement.members.join() + '</p>'; 
-            var button  = '<a href="#members-page?companyid' + companyId + '=&agreementid=' + agreementId + '" data-role="button">Vis medlemmer</a>';
+    	getData('companies/' + companyId + '/agreements/' + agreementId, function(agreement) {
+    		var header = '<h4>' + agreement.type + ' - ' + agreement.agreementNumber + '</h4>';
+    		var details = '<p>Medlemmer: ' +  agreement.members.join() + '</p>'; 
+    		var list = $('#member-list');
+    		list.empty();
 
-            $('#agreement-header').html(header);
-            $('#agreement-details p').html(details);
-            $('#agreement-members-button').html(button);
+    		for(var i = 0; i < agreement.members.length; i++)
+    		{
+    			getData('companies/' + companyId + '/agreements/' + agreementId + '/members/' + agreement.members[i], function(member)
+    					{
+    				var memberLi = '<li><a href="#member-page?companyid=' + companyId + '&agreementid=' + agreementId + '&memberid=' + member.id + '">' + member.name + '</a></li>';  
+    				list.append(memberLi);
+    					});
 
-            page.page();
+    			if(i === agreement.members.length-1)
+    			{
+    				page.page();
+    				$('#member-list').listview('refresh');
+    				$('#agreement-header').html(header);
+    				$('#agreement-details p').html(details);
 
-            options.dataUrl = urlObj.href;
+    				options.dataUrl = urlObj.href;
 
-            $.mobile.changePage(page, options);
-            $.mobile.hidePageLoadingMsg();
-        });
+    				$.mobile.changePage(page, options);
+    				$.mobile.hidePageLoadingMsg();
+    			}
+    		}
+
+
+    	});
     }
     
     function populateMemberPage(urlObj, options, page) {
