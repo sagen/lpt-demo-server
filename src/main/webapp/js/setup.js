@@ -56,8 +56,8 @@ $(document).bind("mobileinit", function(){
             for(var i = 0; i<data.length; i++) {
                 var id = data[i].id;
                 var name = data[i].name;
-                list.append('<li data-companyid="'+id+'" data-companyname="'+name+'" data-swipeurl="rest/companies/'+id+'">' +
-                        '<a href="#agreement-list-page?companyid='+id+'">'+name+'</a></li>');
+                list.append('<li data-companyid="' + id + '" data-companyname="' + name + '" data-swipeurl="rest/companies/' + id + '">' +
+                        '<a href="#agreement-list-page?companyid=' + id + '">' + name + '</a></li>');
             }
 
             list.listview('refresh');
@@ -76,11 +76,11 @@ $(document).bind("mobileinit", function(){
             {
                 var agreement = data[i];
 
-                markup += ('<li data-agreementid="'+agreement.id+'"'+
-                        'data-agreementname="'+agreement.agreementNumber+'"'+
-                        'data-companyid="'+companyId+'"'+
-                        'data-swipeurl="rest/companies/'+companyId+'/agreements/'+agreement.id+'">'+
-                        '<a href="#agreement-page?agreementid='+agreement.id+'&companyid='+companyId+'">'+agreement.agreementNumber+'</a></li>');
+                markup += ('<li data-agreementid="' + agreement.id + '" ' +
+                        'data-agreementname="' + agreement.agreementNumber + '" ' +
+                        'data-companyid="' + companyId + '" ' +
+                        'data-swipeurl="rest/companies/' + companyId + '/agreements/' + agreement.id + '">' +
+                        '<a href="#agreement-page?agreementid=' + agreement.id + '&companyid=' + companyId + '">' + agreement.agreementNumber + '</a></li>');
             }
 
             list.append(markup);
@@ -108,8 +108,8 @@ $(document).bind("mobileinit", function(){
             var markup = '';
             markup += '<h4>Avtaledetaljer for ' + agreement.name + '</h4>';
             markup += '<p>Avtalenummer: ' + agreement.id + '</p>';
-            markup += '<p>Medlemmer: '+ agreement.members.join() + '</p>';
-            markup += '<a href="#members-page?companyid'+companyId+'=&agreementid='+agreementId+'" data-role="button">Vis medlemmer</a>';
+            markup += '<p>Medlemmer: ' +  agreement.members.join() + '</p>';
+            markup += '<a href="#members-page?companyid' + companyId + '=&agreementid=' + agreementId + '" data-role="button">Vis medlemmer</a>';
 
             $content.html(markup);
 
