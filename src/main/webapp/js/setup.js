@@ -139,7 +139,7 @@ $(document).bind("mobileinit", function(){
         var companyId = getURLParameter("companyid", urlObj.href);
         var submitButton = $('#register-member-submit-button');
         
-        submitButton.click(submitMemberForm(companyId, agreementId)));
+        submitButton.click(submitMemberForm(companyId, agreementId));
            
             page.page();
 
@@ -148,7 +148,7 @@ $(document).bind("mobileinit", function(){
 
             $.mobile.changePage(page, options);
             $.mobile.hidePageLoadingMsg();
-        });
+        
     }
 
    function submitMemberForm(companyId, agreementId)
