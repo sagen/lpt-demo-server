@@ -46,7 +46,7 @@
         <h4>Velkommen til fagdag!</h4>
         <p>I løpet av noen timer skal dere lage LPT på mobil!</p>
         <ul data-role="listview" id="company-list" data-inset="true"></ul>
-        <a href="#register-agreement-form-page" data-role="button">Skjema</a>
+        <a href="#register-agreement-form-page" data-role="button" data-icon="plus">Registrer ny avtale</a>
       </div>
 
     </div>
@@ -70,7 +70,16 @@
         <img src="img/SB1_header_logo.png" class="logo" />
       </div>
       <div data-role="content">
-        <div id="result"></div>
+        <h4 id="agreement-header"></h4>
+        
+        <div data-role="collapsible-set">
+			<div data-role="collapsible" id="agreement-details">
+				<h3>Avtaledetaljer</h3>
+				<p>Her kommer den viktigste informasjonen om avtalen</p>
+			</div>
+		</div>
+		
+		<span id="agreement-members-button"></span>
       </div>
     </div>
 

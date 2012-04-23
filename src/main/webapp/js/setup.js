@@ -114,13 +114,13 @@ $(document).bind("mobileinit", function(){
         $content = $(page).children(":jqmData(role=content)");
 
         getData('companies/' + companyId + '/agreements/' + agreementId, function(agreement) {
-            var markup = '';
-            markup += '<h4>Avtaledetaljer for ' + agreement.type + '</h4>';
-            markup += '<p>Avtalenummer: ' + agreement.agreementNumber + '</p>';
-            markup += '<p>Medlemmer: ' +  agreement.members.join() + '</p>';
-            markup += '<a href="#members-page?companyid' + companyId + '=&agreementid=' + agreementId + '" data-role="button">Vis medlemmer</a>';
+            var header = '<h4>' + agreement.type + ' - ' + agreement.agreementNumber + '</h4>';
+            var details = '<p>Medlemmer: ' +  agreement.members.join() + '</p>'; 
+            var button  = '<a href="#members-page?companyid' + companyId + '=&agreementid=' + agreementId + '" data-role="button">Vis medlemmer</a>';
 
-            $content.html(markup);
+            $('#agreement-header').html(header);
+            $('#agreement-details p').html(details);
+            $('#agreement-members-button').html(button);
 
             page.page();
 
