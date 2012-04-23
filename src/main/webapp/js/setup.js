@@ -134,9 +134,12 @@ $(document).bind("mobileinit", function(){
     }
 
     function getURLParameter(name, hash) {
-        return decodeURI(
-            (RegExp('.*'+name + '=' + '(.+?)(&|$)').exec(hash)||[,null])[1]
-        );
+        var parameter = RegExp('.*'+ name + '=(.+?)(&|$)').exec(hash);
+        if (parameter) {
+          return decodeURI(parameter[1]);
+        } else {
+          return null;
+        }
     }
 
     function attachSwipeDeleteListener(){
