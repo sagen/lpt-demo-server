@@ -89,7 +89,7 @@ $(document).bind("mobileinit", function(){
                         'data-agreementname="' + agreement.agreementNumber + '" ' +
                         'data-companyid="' + companyId + '" ' +
                         'data-swipeurl="companies/' + companyId + '/agreements/' + agreement.id + '">' +
-                        '<a href="#agreement-page?agreementid=' + agreement.id + '&companyid=' + companyId + '">' + agreement.name + '</a></li>');
+                        '<a href="#agreement-page?agreementid=' + agreement.id + '&companyid=' + companyId + '">' + agreement.type + '</a></li>');
             }
 
             list.append(markup);
@@ -115,8 +115,8 @@ $(document).bind("mobileinit", function(){
 
         getData('companies/' + companyId + '/agreements/' + agreementId, function(agreement) {
             var markup = '';
-            markup += '<h4>Avtaledetaljer for ' + agreement.name + '</h4>';
-            markup += '<p>Avtalenummer: ' + agreement.id + '</p>';
+            markup += '<h4>Avtaledetaljer for ' + agreement.type + '</h4>';
+            markup += '<p>Avtalenummer: ' + agreement.agreementNumber + '</p>';
             markup += '<p>Medlemmer: ' +  agreement.members.join() + '</p>';
             markup += '<a href="#members-page?companyid' + companyId + '=&agreementid=' + agreementId + '" data-role="button">Vis medlemmer</a>';
 
