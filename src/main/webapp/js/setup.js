@@ -28,6 +28,8 @@ $(document).bind("mobileinit", function(){
     $(document).bind("pagebeforechange", function(e, data) {
         var url = getURL(data);
         
+        console.log(data)
+        
 
         switch (getPage(data)) {
           case "frontpage":
@@ -58,10 +60,36 @@ $(document).bind("mobileinit", function(){
               populateMemberPage(url, data.options, $('#member-page'));
               break;
 
+          case "map":
+            $.mobile.showPageLoadingMsg();
+            e.preventDefault();
+            showMap(url, data, $("#map"));
+            break;
+
           default:
             break;
         }
     });
+
+    function showMap(urlObj, options, page) {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var latitude = position.coords.latitude;
+                var longitude = position.coords.longitude;
+
+                displayMap(latitude, longitude);
+
+                page.page();
+
+                options.dataUrl = urlObj.href;
+
+                $.mobile.changePage(page, options);
+                $.mobile.hidePageLoadingMsg();
+            }, function() {
+                alert("getlocation failed");
+            });
+        }
+    }
 
     function populateCompanies() {
         var list = $('#company-list');
@@ -126,6 +154,7 @@ $(document).bind("mobileinit", function(){
     		var header = '<h4>' + agreement.type + ' - ' + agreement.agreementNumber + '</h4>';
     		var details = '<p>Medlemmer: ' +  agreement.members.join() + '</p>'; 
     		var list = $('#member-list');
+    		list.html("");
     		list.empty();
 
     		for(var i = 0; i < agreement.members.length; i++)
@@ -145,12 +174,12 @@ $(document).bind("mobileinit", function(){
 
     				options.dataUrl = urlObj.href;
 
-    				$.mobile.changePage(page, options);
-    				$.mobile.hidePageLoadingMsg();
+    				
     			}
     		}
 
-
+    		$.mobile.changePage(page, options);
+			$.mobile.hidePageLoadingMsg();
     	});
     }
     
@@ -244,7 +273,7 @@ $(document).bind("mobileinit", function(){
            url: 'rest/companies/' + companyId + "/agreements/" + agreementId + "/members/" + memberId,
            type : 'Delete',
            success : function(createdmember){
-        	    console.log("deleted")
+        	   $.mobile.changePage('#agreement-page?companyid=' + companyId + '&agreementid=' + agreementId);
            },
            error: function(){
         	   
@@ -301,6 +330,8 @@ $(document).bind("mobileinit", function(){
               return "member-form";
             }else if (url.hash.search(/^#member-page/) !== -1) {
               return "member-page";
+            } else if (url.hash.search(/^#map/) !== -1) {
+              return "map";
             }
         } else if ($(data.toPage)[0]==$('#welcome-page')[0]) {
             return "frontpage";
@@ -312,6 +343,43 @@ $(document).bind("mobileinit", function(){
             url: baseUrl + url,
             dataType: "json",
             success : callback
+        });
+    }
+
+    function displayMap(latitude, longitude) {
+        var start = new google.maps.LatLng(59.912083, 10.750615);
+        var end = new google.maps.LatLng(latitude, longitude);
+        var directionsDisplay = new google.maps.DirectionsRenderer();
+
+        directionsDisplay.setMap(getMap());
+
+        addDirections(directionsDisplay, start, end);
+    }
+
+    function getMap() {
+        var oslo = new google.maps.LatLng(59.904719, 10.753341);
+        var myOptions = {
+            zoom:16,
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            center: oslo
+        };
+
+        return new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+    }
+
+    function addDirections(map, start, end) {
+        var directionsService = new google.maps.DirectionsService();
+        var request = {
+            origin: start,
+            destination: end,
+            travelMode: google.maps.TravelMode.WALKING,
+            unitSystem: google.maps.UnitSystem.METRIC
+        };
+
+        directionsService.route(request, function(result, status) {
+            if (status == google.maps.DirectionsStatus.OK) {
+                map.setDirections(result);
+            }
         });
     }
 });

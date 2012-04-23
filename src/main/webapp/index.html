@@ -31,6 +31,9 @@
     <!--   This file should be changed as this is a test file, but it fixes a flicker issue in iOS, and should be in JQM 1.1.1 -->
     <script src="http://jquerymobile.com/test/js/jquery.mobile.js"></script>
     <script src="js/jquery.swipeButton-1.2.js"></script>
+    <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDauqOykam9Cb2js9JpCh19hyOpo2mq_A0&sensor=true">
+    </script>
     <script src="js/javascript.js"></script>
   </head>
   <body>
@@ -45,9 +48,9 @@
       <div data-role="content">
         <h4>Velkommen til fagdag!</h4>
         <p>I løpet av noen timer skal dere lage LPT på mobil!</p>
+        <p><a href="#map">Vis på kart!</a></p>
         <ul data-role="listview" id="company-list" data-inset="true"></ul>
       </div>
-
     </div>
 
     <!-- AGREEMENT LIST PAGE -->
@@ -62,6 +65,17 @@
         <ul data-role="listview" id="agreement-list" data-inset="true"></ul>
       </div>
     </div>
+
+    <!-- MAP -->
+    <div id="map" data-role="page" data-theme="a">
+
+      <div data-role="header">
+        <img src="img/SB1_header_logo.png" class="logo" />
+      </div>
+
+      <div id="map_canvas" style="width: 100%; height: 100%"></div>
+    </div>
+
 
     <!-- AGREEMENT PAGE -->
     <div id="agreement-page" data-role="page"  data-theme="a">
