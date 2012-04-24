@@ -162,7 +162,6 @@ function populateMemberForm(url, page) {
     var memberId = getURLParameter("memberid", url);
     
     var isEdit = memberId === null ? false : true;
-    console.log(isEdit);
 
     if(isEdit !== true){
         deleteButton.hide();
