@@ -7,32 +7,32 @@ $(document).bind("pagebeforechange", function(e, data) {
     var url = getURL(data);
 
     switch (getPage(data)) {
-    case "frontpage":
-        populateCompanies();
-        break;
+        case "frontpage":
+            populateCompanies();
+            break;
 
-    case "agreement-list":
-        populateAgreements(url, $('#agreement-list-page'));
-        break;
+        case "agreement-list":
+            populateAgreements(url, $('#agreement-list-page'));
+            break;
 
-    case "agreement":
-        populateAgreementPage(url, $('#agreement-page'));
-        break;
+        case "agreement":
+            populateAgreementPage(url, $('#agreement-page'));
+            break;
 
-    case "member-form":
-        populateMemberForm(url, $('#register-member-form-page'));
-        break;
+        case "member-form":
+            populateMemberForm(url, $('#register-member-form-page'));
+            break;
 
-    case "member":
-        populateMemberPage(url, $('#member-page'));
-        break;
+        case "member":
+            populateMemberPage(url, $('#member-page'));
+            break;
 
-    case "map":
-        showMap(url, data, $("#map"));
-        break;
+        case "map":
+            showMap(url, data, $("#map"));
+            break;
 
-    default:
-        break;
+        default:
+            break;
     }
 
 });
@@ -44,15 +44,15 @@ function populateCompanies() {
         url: baseUrl + 'companies',
         dataType: "json",
         success: function(data) {
-        list.empty();
+            list.empty();
 
-        for(var i = 0; i<data.length; i++) {
-            var company = data[i];
-            list.append('<li><a href="#agreement-list-page?companyid=' + company.id + '">' + company.name + '</a></li>');
+            for(var i = 0; i<data.length; i++) {
+                var company = data[i];
+                list.append('<li><a href="#agreement-list-page?companyid=' + company.id + '">' + company.name + '</a></li>');
+            }
+
+            list.listview('refresh');
         }
-
-        list.listview('refresh');
-    }
     });
 }
 
@@ -141,14 +141,14 @@ function populateMemberPage(url, page) {
         url: baseUrl + 'companies/' + companyId + '/agreements/' + agreementId + '/members/' + memberId,
         dataType: "json",
         success : function(member) {
-        var detailsText = '<p>Lønn: ' +  member.salary + ' kr</p>';
+            var detailsText = '<p>Lønn: ' +  member.salary + ' kr</p>';
 
-        header.html(member.name);
-        details.html(detailsText);
-        editButton.attr('href', "#register-member-form-page?edit=true&companyid=" + companyId + "&agreementid=" + agreementId + "&memberid=" +member.id);
+            header.html(member.name);
+            details.html(detailsText);
+            editButton.attr('href', "#register-member-form-page?edit=true&companyid=" + companyId + "&agreementid=" + agreementId + "&memberid=" +member.id);
 
-        page.page();
-    }
+            page.page();
+        }
     });
 }
 
