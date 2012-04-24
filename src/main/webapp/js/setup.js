@@ -61,6 +61,7 @@ $(document).bind("mobileinit", function(){
 		default:
 			break;
 		}
+		
 	});
 
 	function showMap(urlObj, options, page) {
@@ -126,6 +127,7 @@ $(document).bind("mobileinit", function(){
 			attachSwipeDeleteListener();
 
 			options.dataUrl = urlObj.href;
+			
 
 			$.mobile.hidePageLoadingMsg();
 		});
@@ -138,7 +140,9 @@ $(document).bind("mobileinit", function(){
 		$content = $(page).children(":jqmData(role=content)");
 		getData('companies/' + companyId + '/agreements/' + agreementId, function(agreement) {
 			var header = '<h4>' + agreement.type + ' - ' + agreement.agreementNumber + '</h4>';
-			var details = '<p>Medlemmer: ' +  agreement.members.join() + '</p>'; 
+			var details = '<p>Registrert: ' +  getDateAsString(agreement.registered) + '<br />'; 
+			details += 'Status: ' +  agreement.status + '<br />'; 
+			details += 'Minimumsalder: ' +  agreement.minimumAge + ' år</p>'; 
 			var list = $('#member-list');
 			list.html("");
 			list.empty();
@@ -351,5 +355,14 @@ $(document).bind("mobileinit", function(){
 				map.setDirections(result);
 			}
 		});
+	}
+	
+	function getDateAsString(milliseconds){
+		var date = new Date(milliseconds);
+	     var year = date.getFullYear();
+	     var month = date.getMonth()+1;
+	     var date = date.getDate();
+	     var time = date+'.'+month+'.'+year;
+	     return time;
 	}
 });
