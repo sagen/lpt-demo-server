@@ -21,7 +21,7 @@ function attachSwipeDeleteListener(list) {
 
 function getURL(data) {
 	var url = $.mobile.path.parseUrl(data.toPage);
-	return url;
+	return url.href;
 }
 
 function getURLParameter(name, hash) {
@@ -37,15 +37,15 @@ function getPage(data) {
 	if (typeof data.toPage === "string") {
 		var url = getURL(data);
 
-		if (url.hash.search(/^#agreement-page/) !== -1) {
+		if (url.search(/#agreement-page/) !== -1) {
 			return "agreement";
-		} else if (url.hash.search(/^#agreement-list-page/) !== -1) {
+		} else if (url.search(/#agreement-list-page/) !== -1) {
 			return "agreement-list";
-		} else if (url.hash.search(/^#register-member-form-page/) !== -1) {
+		} else if (url.search(/#register-member-form-page/) !== -1) {
 			return "member-form";
-		}else if (url.hash.search(/^#member-page/) !== -1) {
+		}else if (url.search(/#member-page/) !== -1) {
 			return "member-page";
-		} else if (url.hash.search(/^#map/) !== -1) {
+		} else if (url.search(/#map/) !== -1) {
 			return "map";
 		}
 	} else if ($(data.toPage)[0] == $('#welcome-page')[0]) {

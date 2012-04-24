@@ -59,7 +59,7 @@ $(document).bind("mobileinit", function(){
 		
 	});
 
-	function showMap(urlObj, options, page) {
+	function showMap(url, options, page) {
 		if (navigator.geolocation) {
 			navigator.geolocation.getCurrentPosition(function(position) {
 				var latitude = position.coords.latitude;
@@ -90,8 +90,8 @@ $(document).bind("mobileinit", function(){
 		});
 	}
 
-	function populateAgreements(urlObj, options, page) {
-		var companyId = getURLParameter("companyid", urlObj.href);
+	function populateAgreements(url, options, page) {
+		var companyId = getURLParameter("companyid", url);
 		var list = $('#agreement-list');
 		var markup = "";
 
@@ -116,9 +116,9 @@ $(document).bind("mobileinit", function(){
 	}
 
 
-	function populateAgreementPage(urlObj, options, page) {
-		var agreementId = getURLParameter("agreementid", urlObj.href);
-		var companyId = getURLParameter("companyid", urlObj.href);
+	function populateAgreementPage(url, options, page) {
+		var agreementId = getURLParameter("agreementid", url);
+		var companyId = getURLParameter("companyid", url);
 		$content = $(page).children(":jqmData(role=content)");
 		getData('companies/' + companyId + '/agreements/' + agreementId, function(agreement) {
 			var header = '<h4>' + agreement.type + ' - ' + agreement.agreementNumber + '</h4>';
@@ -141,10 +141,10 @@ $(document).bind("mobileinit", function(){
 		});
 	}
 
-	function populateMemberPage(urlObj, options, page) {
-		var agreementId = getURLParameter("agreementid", urlObj.href);
-		var companyId = getURLParameter("companyid", urlObj.href);
-		var memberId = getURLParameter("memberid", urlObj.href);
+	function populateMemberPage(url, options, page) {
+		var agreementId = getURLParameter("agreementid", url);
+		var companyId = getURLParameter("companyid", url);
+		var memberId = getURLParameter("memberid", url);
 		var header = $('#member-header');
 		var details = $('#member-details');
 		var editButton = $("#edit-member-button");
@@ -160,17 +160,17 @@ $(document).bind("mobileinit", function(){
 		});
 	}
 
-	function populateMemberForm(urlObj, options, page) {
-		var agreementId = getURLParameter("agreementid", urlObj.href);
-		var companyId = getURLParameter("companyid", urlObj.href);
-		var isEdit = getURLParameter("edit", urlObj.href);
+	function populateMemberForm(url, options, page) {
+		var agreementId = getURLParameter("agreementid", url);
+		var companyId = getURLParameter("companyid", url);
+		var isEdit = getURLParameter("edit", url);
 		var submitButton = $('#register-member-submit-button');
 		var deleteButton = $('#member-delete-button');
 
 		if(isEdit !== 'true'){
 			deleteButton.hide();
 		}else {
-			var memberId = getURLParameter("memberid", urlObj.href);
+			var memberId = getURLParameter("memberid", url);
 
 			getData('companies/' + companyId + '/agreements/' + agreementId + '/members/' + memberId, function(member) {
 				$('#register-member-form #ssn').val(member.fnr);
@@ -190,8 +190,7 @@ $(document).bind("mobileinit", function(){
 
 		page.page();
 
-
-		options.dataUrl = urlObj.href;
+		options.dataUrl = url;
 	}
 
 	function submitMemberForm(companyId, agreementId) {
