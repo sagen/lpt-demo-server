@@ -290,7 +290,6 @@ $(document).bind("mobileinit", function(){
 	}
 
 	function getData(url, callback) {
-		$.mobile.showPageLoadingMsg();
 		$.ajax({
 			url: baseUrl + url,
 			dataType: "json",
