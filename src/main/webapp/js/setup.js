@@ -113,8 +113,6 @@ $(document).bind("mobileinit", function(){
 			page.page();
 
 			list.listview('refresh');
-
-			attachSwipeDeleteListener();
 		});
 	}
 
@@ -139,6 +137,7 @@ $(document).bind("mobileinit", function(){
 				$('#agreement-details p').html(details);
 				page.page();
 				$('#member-list').listview('refresh');
+				attachSwipeDeleteListener();
 			});
 		});
 	}
@@ -235,7 +234,7 @@ $(document).bind("mobileinit", function(){
 
 
 	function attachSwipeDeleteListener() {
-		$('#agreement-list li').swipeDelete({
+		$('#member-list li').swipeDelete({
 			btnTheme: 'e',
 			btnLabel: 'Slett',
 			btnClass: 'aSwipeButton',
