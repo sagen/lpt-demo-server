@@ -124,12 +124,46 @@ Så hvordan fyller vi inn firmalisten?
 # JavaScript
 
     .javascript
+    var list = $('#company-list');
+
     $.ajax({
+
       url: "http://lptdemo.herokuapp.com/rest/companies",
+
       dataType: "json",
-      success: function() {
+
+      success: function(companies) {
+
+        list.empty();
+
+        for(var i = 0; i < companies.length; i++) {
+          var company = companies[i];
+          list.append('<li><a href="#agreement-list-page?companyid=' + company.id + '">' + 
+              company.name + '</a></li>');
+        }
+
+        list.listview('refresh');
+
       }
     });
+
+---
+
+# JSON-responsen
+
+    .javascript
+    [
+      { "id":35, "name": "Bekk Consulting AS", "agreements": [34,21,27] },
+      { "id":49, "name": "EVRY AS",            "agreements": [48,38,44] },
+      { "id":64, "name": "Statoil ASA",        "agreements": [55,58,63] },
+      { "id":14, "name": "Veidekke ASA",       "agreements": [4,8,13]   }
+    ]
+
+---
+
+# Komme igang
+
+
 
 ---
 
