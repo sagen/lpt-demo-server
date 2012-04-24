@@ -9,7 +9,7 @@ import java.util.Map;
 import no.sb1.lpt.model.Entity;
 
 public class Util {
-    public static final String JSON_CONTENT_TYPE = APPLICATION_JSON + ";charset=UTF-8";
+    public static final String JSON_CONTENT_TYPE = APPLICATION_JSON;
     public static final String JSONP_CONTENT_TYPE = "application/x-javascript";
 
     private static int idGenerated = 0;
