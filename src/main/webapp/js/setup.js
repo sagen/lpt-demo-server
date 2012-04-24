@@ -119,21 +119,24 @@ $(document).bind("mobileinit", function(){
 	function populateAgreementPage(urlObj, options, page) {
 		var agreementId = getURLParameter("agreementid", urlObj.href);
 		var companyId = getURLParameter("companyid", urlObj.href);
+		var registerButton = $('#register-member-button');
 		$content = $(page).children(":jqmData(role=content)");
 		getData('companies/' + companyId + '/agreements/' + agreementId, function(agreement) {
 			var header = '<h4>' + agreement.type + ' - ' + agreement.agreementNumber + '</h4>';
 			var details = '<p>Registrert: ' +  getDateAsString(agreement.registered) + '<br />'; 
 			details += 'Status: ' +  agreement.status + '<br />'; 
 			details += 'Minimumsalder: ' +  agreement.minimumAge + ' år</p>'; 
+			$('#agreement-header').html(header);
+			$('#agreement-details p').html(details);
+			registerButton.attr('href', "#register-member-form-page?companyid=" + companyId + "&agreementid=" + agreementId);
+			
 			var list = $('#member-list');
-			list.html("");
 			list.empty();
 			var members = getData('companies/' + companyId + '/agreements/' + agreementId + '/members', function(members){
 				$.each(members, function(i, member){
 					list.append('<li data-swipeurl="companies/' + companyId + '/agreements/' + agreement.id + '/members/' + member.id + '"><a href="#member-page?companyid=' + companyId + '&agreementid=' + agreementId + '&memberid=' + member.id + '">' + member.name + '</a></li>');
 				});
-				$('#agreement-header').html(header);
-				$('#agreement-details p').html(details);
+				
 				page.page();
 				$('#member-list').listview('refresh');
 				attachSwipeDeleteListener('#member-list');
@@ -148,6 +151,9 @@ $(document).bind("mobileinit", function(){
 		var header = $('#member-header');
 		var details = $('#member-details');
 		var editButton = $("#edit-member-button");
+		$('#backButton').hide();
+		var backButton = $("#back-member-button"); //We dont want default back button if a member is registered or edited
+		backButton.attr('href', "#agreement-page?companyid=" + companyId + "&agreementid=" + agreementId);
 
 		getData('companies/' + companyId + '/agreements/' + agreementId + '/members/' + memberId, function(member) {
 			var detailsText = '<p>Lønn: ' +  member.salary + ' kr</p>'; 
@@ -208,7 +214,7 @@ $(document).bind("mobileinit", function(){
 			data: JSON.stringify(member),
 			dataType: "json",
 			success : function(createdmember){
-				$.mobile.changePage('#member-page?companyid=' + companyId + '&agreementid' + agreementId + '&memberid' + createdmember.id);
+				$.mobile.changePage('#member-page?companyid=' + companyId + '&agreementid=' + agreementId + '&memberid=' + createdmember.id);
 			},
 			error: function(){
 
