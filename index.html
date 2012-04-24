@@ -161,15 +161,54 @@ Så hvordan fyller vi inn firmalisten?
 
 ---
 
-# Komme igang
+.middle.center
 
+![](avtaler.png)
 
+---
+
+# Få opp miljøet
+
+Last ned `lpt.zip` fra `https://github.com/sagen/lpt-demo-server/downloads`
+
+Inneholder:
+
+* `index.html`
+* `app.js`
+* `framework.js`
+* Notepad++
+* WinSCP
 
 ---
 
 # Oppgave 1
 
+Vise informasjon om en avtale.
 
+Skal vise:
+
+* Registreringsdato
+* Status
+* Minimumsalder
+
+---
+
+# REST-endepunkt
+
+URL: `http://lptdemo.herokuapp.com/rest/companies/{id}/agreements/{id}`
+
+Eksempelrespons:
+
+    .javascript
+    {
+      "id": 33,
+      "members": [32,29,28,31,30],
+      "type": "Innskuddspensjon med investeringsvalg",
+      "agreementNumber": 589162912,
+      "status": "SUSPENDED",
+      "registered": -304600985810,
+      "minimumAge": 16
+    }
 
     </textarea>
     <div id="slideshow"></div>
