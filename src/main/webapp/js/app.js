@@ -180,7 +180,7 @@ function submitMemberForm(companyId, agreementId, memberId) {
 	member.name = $('#register-member-form #name').val();
 	member.salary = $('#register-member-form #salary').val();
 
-	var url = 'rest/companies/' + companyId + '/agreements/' + agreementId + '/members/';
+	var url = baseUrl + 'companies/' + companyId + '/agreements/' + agreementId + '/members/';
 	if (memberId) {
 		url += memberId;
 	}
@@ -203,7 +203,7 @@ function submitMemberForm(companyId, agreementId, memberId) {
 
 function deleteMember(companyId, agreementId, memberId){
 	$.ajax({
-		url: 'rest/companies/' + companyId + "/agreements/" + agreementId + "/members/" + memberId,
+		url: baseUrl+'companies/' + companyId + "/agreements/" + agreementId + "/members/" + memberId,
 		type : 'Delete',
 		success : function(createdmember){
 			$.mobile.changePage('#agreement-page?companyid=' + companyId + '&agreementid=' + agreementId);
