@@ -258,11 +258,48 @@ Eksempelrespons:
 
 # Oppgave 4
 
-Endre medlem.
+Legge til og endre medlem.
 
-Knapp + skjema + posting av informasjon.
+Skal lage lenke, skjema og lagring av dataen.
 
-JSON.stringify
+Eksempel på lagring av data:
+
+    .javascript
+    var member = {
+      fnr: "25013947352",
+      name: "Anne Nilsen",
+      salary: 1000
+    };
+
+    $.ajax({
+      url: "http://lptdemo.herokuapp.com/rest/companies/{id}/agreements/{id}/members/{id}",
+      contentType: "application/json",
+      type: 'POST',
+      data: JSON.stringify(member),
+      dataType: "json",
+      success: function(data){
+      }
+    });
+
+For å legge til en medlem, fjern siste `/{id}` fra URL-en.
+
+---
+
+# Oppgave 5
+
+Slette bruker.
+
+Både med knapp og med swipe.
+
+Swipe-funksjonen.
+
+---
+
+# Oppgave 6
+
+Vise veibeskrivelse til nærmeste Sparebank1-kontor.
+
+`navigator.geolocation`
 
     </textarea>
     <div id="slideshow"></div>
