@@ -24,8 +24,8 @@ public class DataGenerator {
     }
 
     static Map<Integer, Company> data() {
-        return Util.map(new Company("Snekker", agreements()), new Company("Maler", agreements()),
-                new Company("Blomsterforretning", agreements()), new Company("Kakedekoratør", agreements()));
+        return Util.map(new Company("Veidekke ASA", agreements()), new Company("Bekk Consulting AS", agreements()),
+                new Company("EVRY AS", agreements()), new Company("Statoil ASA", agreements()));
     }
 
     private static Map<Integer, Member> members() {
