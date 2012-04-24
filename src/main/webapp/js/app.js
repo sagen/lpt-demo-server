@@ -60,8 +60,7 @@ function populateCompanies() {
 
 		for(var i = 0; i<data.length; i++) {
 			var company = data[i];
-			list.append('<li data-companyid="' + company.id + '" data-companyname="' + company.name + '" data-swipeurl="companies/' + company.id + '">' +
-					'<a href="#agreement-list-page?companyid=' + company.id + '">' + company.name + '</a></li>');
+			list.append('<li><a href="#agreement-list-page?companyid=' + company.id + '">' + company.name + '</a></li>');
 		}
 
 		list.listview('refresh');
