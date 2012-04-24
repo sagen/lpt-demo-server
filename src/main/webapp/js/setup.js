@@ -183,11 +183,11 @@ $(document).bind("mobileinit", function(){
 
 			deleteButton.click(function(){
 				deleteMember(companyId, agreementId, memberId);
-			})
+			});
 		}
 
 		submitButton.click(function(){
-			submitMemberForm(companyId, agreementId)
+			submitMemberForm(companyId, agreementId);
 		});
 
 		page.page();
@@ -284,7 +284,7 @@ $(document).bind("mobileinit", function(){
 			} else if (url.hash.search(/^#map/) !== -1) {
 				return "map";
 			}
-		} else if ($(data.toPage)[0]==$('#welcome-page')[0]) {
+		} else if ($(data.toPage)[0] == $('#welcome-page')[0]) {
 			return "frontpage";
 		}
 	}
@@ -336,11 +336,11 @@ $(document).bind("mobileinit", function(){
 	}
 	
 	function getDateAsString(milliseconds){
-		var date = new Date(milliseconds);
-	     var year = date.getFullYear();
-	     var month = date.getMonth()+1;
-	     var date = date.getDate();
-	     var time = date+'.'+month+'.'+year;
-	     return time;
+		var dateObject = new Date(milliseconds);
+		var year = dateObject.getFullYear();
+		var month = dateObject.getMonth()+1;
+		var date = date.getDate();
+		var time = date + '.' + month + '.' + year;
+		return time;
 	}
 });
