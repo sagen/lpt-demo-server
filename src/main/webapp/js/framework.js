@@ -1,3 +1,23 @@
+function setupTheme() {
+	$.extend($.mobile,{
+		defaultPageTransition: 'slidefade', //or slide?
+		defaultDialogTransition: 'pop'
+	});
+
+
+	$.mobile.page.prototype.options.addBackBtn = true;
+	$.mobile.page.prototype.options.backBtnText = "Tilbake";
+
+
+	// Listviews
+	$.mobile.listview.prototype.options.headerTheme  = "b";  // Header for nested lists
+	$.mobile.listview.prototype.options.theme        = "b";  // List items / content
+	$.mobile.listview.prototype.options.dividerTheme = "b";  // List divider
+	$.mobile.listview.prototype.options.splitTheme   = "b";
+	$.mobile.listview.prototype.options.countTheme   = "b";
+	$.mobile.listview.prototype.options.filterTheme  = "b";
+}
+
 function attachSwipeDeleteListener(list) {
 	$(list+' li').swipeDelete({
 		btnTheme: 'e',
