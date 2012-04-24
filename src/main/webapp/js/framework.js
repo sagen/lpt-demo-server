@@ -64,7 +64,7 @@ function getPage(data) {
 		} else if (url.search(/#register-member-form-page/) !== -1) {
 			return "member-form";
 		}else if (url.search(/#member-page/) !== -1) {
-			return "member-page";
+			return "member";
 		} else if (url.search(/#map/) !== -1) {
 			return "map";
 		}

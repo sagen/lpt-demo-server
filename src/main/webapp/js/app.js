@@ -23,7 +23,7 @@ $(document).bind("pagebeforechange", function(e, data) {
 		populateMemberForm(url, data.options, $('#register-member-form-page'));
 		break;
 
-	case "member-page":
+	case "member":
 		populateMemberPage(url, data.options, $('#member-page'));
 		break;
 
