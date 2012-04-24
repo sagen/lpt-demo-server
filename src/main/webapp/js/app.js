@@ -1,5 +1,4 @@
-//var baseUrl = 'http://lptdemo.herokuapp.com/rest/';
-var baseUrl = 'rest/';
+var baseUrl = 'http://lptdemo.herokuapp.com/rest/';
 
 $(document).bind("mobileinit", setupTheme);
 
