@@ -116,9 +116,9 @@ $(document).bind("mobileinit", function(){
 	}
 
 
-	function populateAgreementPage(urlObj, options, page) {
-		var agreementId = getURLParameter("agreementid", urlObj.href);
-		var companyId = getURLParameter("companyid", urlObj.href);
+	function populateAgreementPage(url, options, page) {
+		var agreementId = getURLParameter("agreementid", url);
+		var companyId = getURLParameter("companyid", url);
 		var registerButton = $('#register-member-button');
 		$content = $(page).children(":jqmData(role=content)");
 		getData('companies/' + companyId + '/agreements/' + agreementId, function(agreement) {
