@@ -92,8 +92,6 @@ function populateAgreementPage(url, page) {
     var companyId = getURLParameter("companyid", url);
     var registerButton = $('#register-member-button');
 
-    $content = $(page).children(":jqmData(role=content)");
-
     $.ajax({
         url: baseUrl + 'companies/' + companyId + '/agreements/' + agreementId,
         dataType: "json",
