@@ -3,6 +3,7 @@
 *.iws
 *.classpath
 *.project
+*.DS_store
 .settings/
 .idea/
 target
