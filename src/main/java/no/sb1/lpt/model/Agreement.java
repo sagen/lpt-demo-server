@@ -10,7 +10,7 @@ import static no.sb1.lpt.Util.map;
 import static no.sb1.lpt.Util.nullValue;
 
 public class Agreement extends Entity {
-    public enum Status{ACTIVE("Aktiv"), SUSPENDED("Venter på endring");
+    public enum Status{ACTIVE("I kraft"), SUSPENDED("Aktiv, ubehandlet endring");
     	
     	private String name; 
     
