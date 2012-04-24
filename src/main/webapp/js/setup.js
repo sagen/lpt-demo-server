@@ -90,6 +90,7 @@ $(document).bind("mobileinit", function(){
 			}
 
 			list.listview('refresh');
+			$.mobile.hidePageLoadingMsg();
 		});
 	}
 
@@ -118,6 +119,7 @@ $(document).bind("mobileinit", function(){
 			list.listview('refresh');
 
 			attachSwipeDeleteListener();
+			$.mobile.hidePageLoadingMsg();
 		});
 	}
 
@@ -134,7 +136,6 @@ $(document).bind("mobileinit", function(){
 			var list = $('#member-list');
 			list.html("");
 			list.empty();
-			$.mobile.showPageLoadingMsg();
 			var members = getData('companies/' + companyId + '/agreements/' + agreementId + '/members', function(members){
 				$.each(members, function(i, member){
 					list.append('<li><a href="#member-page?companyid=' + companyId + '&agreementid=' + agreementId + '&memberid=' + member.id + '">' + member.name + '</a></li>');
@@ -164,6 +165,7 @@ $(document).bind("mobileinit", function(){
 			editButton.attr('href', "#register-member-form-page?edit=true&companyid=" + companyId + "&agreementid=" + agreementId + "&memberid=" +member.id);
 
 			page.page();
+			$.mobile.hidePageLoadingMsg();
 		});
 	}
 
@@ -183,6 +185,7 @@ $(document).bind("mobileinit", function(){
 				$('#register-member-form #ssn').val(member.fnr);
 				$('#register-member-form #name').val(member.name);
 				$('#register-member-form #salary').val(member.salary);
+				$.mobile.hidePageLoadingMsg();
 			});
 
 			deleteButton.click(function(){
@@ -291,6 +294,7 @@ $(document).bind("mobileinit", function(){
 	}
 
 	function getData(url, callback) {
+		$.mobile.showPageLoadingMsg();
 		$.ajax({
 			url: baseUrl + url,
 			dataType: "json",
