@@ -10,13 +10,26 @@ import static no.sb1.lpt.Util.map;
 import static no.sb1.lpt.Util.nullValue;
 
 public class Agreement extends Entity {
-    public enum Status{ACTIVE, SUSPENDED}
+    public enum Status{ACTIVE("Aktiv"), SUSPENDED("Venter på endring");
+    	
+    	private String name; 
+    
+    	Status(String name){
+    		this.name = name;
+    	}
+    
+    	String getName(){
+    		return name;
+    	}
+    	
+    }
 
     @JsonIgnore
     public final Map<Integer, Member> members;
     
     public String type;
     public Integer agreementNumber;
+    @JsonIgnore
     public Status status;
     public Date registered;
     public Integer minimumAge;
@@ -45,6 +58,10 @@ public class Agreement extends Entity {
 
     public Set<Integer> getMembers(){
         return members.keySet();
+    }
+    
+    public String getStatus(){
+    	return status.getName();
     }
 
 }

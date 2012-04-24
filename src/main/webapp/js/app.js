@@ -103,7 +103,7 @@ function populateAgreementPage(url, options, page) {
 		var header = '<h4>' + agreement.type + ' - ' + agreement.agreementNumber + '</h4>';
 		var details = '<p>Registrert: ' +  getDateAsString(agreement.registered) + '<br />'; 
 		details += 'Status: ' +  agreement.status + '<br />'; 
-		details += 'Minimumsalder: ' +  agreement.minimumAge + ' år</p>'; 
+		details += 'Laveste opptaksalder: ' +  agreement.minimumAge + ' år</p>'; 
 		$('#agreement-header').html(header);
 		$('#agreement-details p').html(details);
 		registerButton.attr('href', "#register-member-form-page?companyid=" + companyId + "&agreementid=" + agreementId);

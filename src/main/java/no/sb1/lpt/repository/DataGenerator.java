@@ -69,7 +69,7 @@ public class DataGenerator {
 
     private static Date registered() {
         long year = (365L * 24L * 60L * 60L * 1000L);
-        return new Date(System.currentTimeMillis() - (generator.nextInt(60) + 20) * year);
+        return new Date(System.currentTimeMillis() - (generator.nextInt(5) + 20) * year);
 
     }
 
