@@ -172,12 +172,11 @@ $(document).bind("mobileinit", function(){
 		var isEdit = getURLParameter("edit", url);
 		var submitButton = $('#register-member-submit-button');
 		var deleteButton = $('#member-delete-button');
+		var memberId = getURLParameter("memberid", url);
 
 		if(isEdit !== 'true'){
 			deleteButton.hide();
 		}else {
-			var memberId = getURLParameter("memberid", url);
-
 			getData('companies/' + companyId + '/agreements/' + agreementId + '/members/' + memberId, function(member) {
 				$('#register-member-form #ssn').val(member.fnr);
 				$('#register-member-form #name').val(member.name);
@@ -191,7 +190,7 @@ $(document).bind("mobileinit", function(){
 		}
 
 		submitButton.click(function(){
-			submitMemberForm(companyId, agreementId);
+			submitMemberForm(companyId, agreementId, memberId);
 		});
 
 		page.page();
@@ -199,15 +198,19 @@ $(document).bind("mobileinit", function(){
 		options.dataUrl = url;
 	}
 
-	function submitMemberForm(companyId, agreementId) {
+	function submitMemberForm(companyId, agreementId, memberId) {
 		var member = {};
 		member.fnr = $('#register-member-form #ssn').val();
 		member.name = $('#register-member-form #name').val();
 		member.salary = $('#register-member-form #salary').val();
 
+		var url = 'rest/companies/' + companyId + '/agreements/' + agreementId + '/members/';
+		if (memberId) {
+			url += memberId;
+		}
 
 		$.ajax({
-			url: 'rest/companies/' + companyId + "/agreements/" + agreementId + "/members/",
+			url: url,
 			contentType: "application/json",
 			type : 'POST',
 			data: JSON.stringify(member),
