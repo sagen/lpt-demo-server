@@ -147,7 +147,7 @@ function populateMemberPage(url, page) {
 
             header.html(member.name);
             details.html(detailsText);
-            editButton.attr('href', "#register-member-form-page?edit=true&companyid=" + companyId + "&agreementid=" + agreementId + "&memberid=" +member.id);
+            editButton.attr('href', "#register-member-form-page?companyid=" + companyId + "&agreementid=" + agreementId + "&memberid=" +member.id);
 
             page.page();
         }
@@ -157,12 +157,14 @@ function populateMemberPage(url, page) {
 function populateMemberForm(url, page) {
     var agreementId = getURLParameter("agreementid", url);
     var companyId = getURLParameter("companyid", url);
-    var isEdit = getURLParameter("edit", url);
     var submitButton = $('#register-member-submit-button');
     var deleteButton = $('#member-delete-button');
     var memberId = getURLParameter("memberid", url);
+    
+    var isEdit = memberId === null ? false : true;
+    console.log(isEdit);
 
-    if(isEdit !== 'true'){
+    if(isEdit !== true){
         deleteButton.hide();
         $('#register-member-form #ssn').val("");
         $('#register-member-form #name').val("");
