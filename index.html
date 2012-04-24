@@ -50,19 +50,13 @@ Vi skal lage en veldig simplifisert versjon av LPT
 
 Målet er å løse noen av de vanligste aktivitetene brukerne gjør i systemet.
 
----
-
-# Vanligste oppgaver
+**Vanligste kundeaktiviteter**
 
 * Lønnsendring medlem
 * Innmelding medlem
 * Utmelding medlem
-* Se på faktura
-* Fondsbytte for et medlem (gå inn på privat avtale og endre)
 
-Vi skal løse de tre første.
-
-(Og forhåpentligvis en kul oppgave til på slutten)
+Forhåpentligvis rekker vi en kul oppgave til på slutten.
 
 ---
 
@@ -92,7 +86,7 @@ Men i det siste har Mobilbank-prosjektet og andre prosjekter basert seg på en a
 
 ---
 
-# Hvorfor?
+# JSF og mobil
 
 JSF er tilstandsbasert.
 
@@ -101,6 +95,8 @@ JSF tar mange klare valg.
 Primært leveranse av hele HTML-responser.
 
 Fungerer bedre på desktop enn mobil.
+
+Vanskelig å teste.
 
 ---
 
@@ -115,6 +111,28 @@ Klarere skille mellom backend og frontend — api!
 HTTP-verb: GET, POST, PUT, DELETE
 
 Det kan virke *vanskeligere*, men det er mindre *komplekst*.
+
+---
+
+# HTTP-verb
+
+    .no-highlight
+    HTTP GET    -> /users   = hent liste med brukere
+    HTTP POST   -> /users   = lag en ny bruker
+    HTTP PUT    -> /users/1 = endre bruker #1
+    HTTP DELETE -> /users/1 = slett bruker #1
+
+---
+
+# Jersey
+
+Oracles referanseimplementasjon av JAX-RS,
+
+altså Java-APIet for å lage REST-tjenester.
+
+Annotasjonsbasert.
+
+TODO: kort eksempel.
 
 ---
 
