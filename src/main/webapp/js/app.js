@@ -81,7 +81,8 @@ function populateAgreements(url, options, page) {
 			markup += ('<li data-agreementid="' + agreement.id + '" ' +
 					'data-agreementname="' + agreement.agreementNumber + '" ' +
 					'data-companyid="' + companyId + '">' +
-					'<a href="#agreement-page?agreementid=' + agreement.id + '&companyid=' + companyId + '">' + agreement.type + '</a></li>');
+					'<a href="#agreement-page?agreementid=' + agreement.id + '&companyid=' + companyId + '">' + agreement.type + 
+					'<span class="ui-li-count">'+agreement.members.length+'</span></a></li>');
 		}
 
 		list.append(markup);
