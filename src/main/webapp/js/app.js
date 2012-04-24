@@ -204,10 +204,10 @@ $(document).bind("mobileinit", function(){
 		member.name = $('#register-member-form #name').val();
 		member.salary = $('#register-member-form #salary').val();
 
-        var url = 'rest/companies/' + companyId + '/agreements/' + agreementId + '/members/';
-        if (memberId) {
-            url += memberId;
-        }
+		var url = 'rest/companies/' + companyId + '/agreements/' + agreementId + '/members/';
+		if (memberId) {
+			url += memberId;
+		}
 
 		$.ajax({
 			url: url,
