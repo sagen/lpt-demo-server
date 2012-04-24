@@ -337,7 +337,7 @@ $(document).bind("mobileinit", function(){
 		var dateObject = new Date(milliseconds);
 		var year = dateObject.getFullYear();
 		var month = dateObject.getMonth()+1;
-		var date = date.getDate();
+		var date = dateObject.getDate();
 		var time = date + '.' + month + '.' + year;
 		return time;
 	}
