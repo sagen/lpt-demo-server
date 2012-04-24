@@ -34,27 +34,22 @@ $(document).bind("mobileinit", function(){
 			break;
 
 		case "agreement-list":
-			$.mobile.showPageLoadingMsg();
 			populateAgreements(url, data.options, $('#agreement-list-page')); // should be data.options here as well? But it isn't working. The back button from agreement-list-page to welcome-page won't work.
 			break;
 
 		case "agreement":
-			$.mobile.showPageLoadingMsg();
 			populateAgreementPage(url, data.options, $('#agreement-page'));
 			break; 
 
 		case "member-form":
-			$.mobile.showPageLoadingMsg();
 			populateMemberForm(url, data.options, $('#register-member-form-page'));
 			break;
 
 		case "member-page":
-			$.mobile.showPageLoadingMsg();
 			populateMemberPage(url, data.options, $('#member-page'));
 			break;
 
 		case "map":
-			$.mobile.showPageLoadingMsg();
 			showMap(url, data, $("#map"));
 			break;
 
@@ -77,7 +72,6 @@ $(document).bind("mobileinit", function(){
 				options.dataUrl = urlObj.href;
 
 				$.mobile.changePage(page, options);
-				$.mobile.hidePageLoadingMsg();
 			}, function() {
 				alert("getlocation failed");
 			});
@@ -127,9 +121,6 @@ $(document).bind("mobileinit", function(){
 			attachSwipeDeleteListener();
 
 			options.dataUrl = urlObj.href;
-			
-
-			$.mobile.hidePageLoadingMsg();
 		});
 	}
 
@@ -155,7 +146,6 @@ $(document).bind("mobileinit", function(){
 				page.page();
 				$('#member-list').listview('refresh');
 				options.dataUrl = urlObj.href;
-				$.mobile.hidePageLoadingMsg();
 			});
 		});
 	}
@@ -179,7 +169,6 @@ $(document).bind("mobileinit", function(){
 
 			options.dataUrl = urlObj.href;
 
-			$.mobile.hidePageLoadingMsg();
 		});
 	}
 
@@ -214,9 +203,6 @@ $(document).bind("mobileinit", function(){
 
 
 		options.dataUrl = urlObj.href;
-
-		$.mobile.hidePageLoadingMsg();
-
 	}
 
 	function submitMemberForm(companyId, agreementId) {
