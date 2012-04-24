@@ -141,7 +141,9 @@ function populateMemberPage(url, page) {
         url: baseUrl + 'companies/' + companyId + '/agreements/' + agreementId + '/members/' + memberId,
         dataType: "json",
         success : function(member) {
-            var detailsText = '<p>Lønn: ' +  member.salary + ' kr</p>';
+            var detailsText = '<p>Fødselsnummer: ' +  member.fnr + '<br />';
+            detailsText += 'Lønn: ' +  member.salary + ' kr <br>';
+            detailsText += 'Registeringsdato: ' +  getDateAsString(member.registered) + '</p>';
 
             header.html(member.name);
             details.html(detailsText);
