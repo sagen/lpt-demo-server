@@ -130,9 +130,6 @@ function populateMemberPage(url, options, page) {
 	var header = $('#member-header');
 	var details = $('#member-details');
 	var editButton = $("#edit-member-button");
-	$('#backButton').hide();
-	var backButton = $("#back-member-button"); //We dont want default back button if a member is registered or edited
-	backButton.attr('href', "#agreement-page?companyid=" + companyId + "&agreementid=" + agreementId);
 
 	getData('companies/' + companyId + '/agreements/' + agreementId + '/members/' + memberId, function(member) {
 		var detailsText = '<p>Lønn: ' +  member.salary + ' kr</p>'; 
@@ -155,12 +152,14 @@ function populateMemberForm(url, options, page) {
 
 	if(isEdit !== 'true'){
 		deleteButton.hide();
+		$('#register-member-form #ssn').val("");
+		$('#register-member-form #name').val("");
+		$('#register-member-form #salary').val("");
 	}else {
 		getData('companies/' + companyId + '/agreements/' + agreementId + '/members/' + memberId, function(member) {
 			$('#register-member-form #ssn').val(member.fnr);
 			$('#register-member-form #name').val(member.name);
 			$('#register-member-form #salary').val(member.salary);
-			$.mobile.hidePageLoadingMsg();
 		});
 
 		deleteButton.click(function(){
