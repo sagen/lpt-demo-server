@@ -68,9 +68,6 @@ $(document).bind("mobileinit", function(){
 				displayMap(latitude, longitude);
 
 				page.page();
-
-				options.dataUrl = urlObj.href;
-
 			}, function() {
 				alert("getlocation failed");
 			});
@@ -90,7 +87,6 @@ $(document).bind("mobileinit", function(){
 			}
 
 			list.listview('refresh');
-			$.mobile.hidePageLoadingMsg();
 		});
 	}
 
@@ -119,7 +115,6 @@ $(document).bind("mobileinit", function(){
 			list.listview('refresh');
 
 			attachSwipeDeleteListener();
-			$.mobile.hidePageLoadingMsg();
 		});
 	}
 
@@ -144,7 +139,6 @@ $(document).bind("mobileinit", function(){
 				$('#agreement-details p').html(details);
 				page.page();
 				$('#member-list').listview('refresh');
-				$.mobile.hidePageLoadingMsg();
 			});
 		});
 	}
@@ -165,7 +159,6 @@ $(document).bind("mobileinit", function(){
 			editButton.attr('href', "#register-member-form-page?edit=true&companyid=" + companyId + "&agreementid=" + agreementId + "&memberid=" +member.id);
 
 			page.page();
-			$.mobile.hidePageLoadingMsg();
 		});
 	}
 
@@ -198,6 +191,9 @@ $(document).bind("mobileinit", function(){
 		});
 
 		page.page();
+
+
+		options.dataUrl = urlObj.href;
 	}
 
 	function submitMemberForm(companyId, agreementId) {
