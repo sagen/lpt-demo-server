@@ -103,8 +103,7 @@ $(document).bind("mobileinit", function(){
 
 				markup += ('<li data-agreementid="' + agreement.id + '" ' +
 						'data-agreementname="' + agreement.agreementNumber + '" ' +
-						'data-companyid="' + companyId + '" ' +
-						'data-swipeurl="companies/' + companyId + '/agreements/' + agreement.id + '">' +
+						'data-companyid="' + companyId + '">' +
 						'<a href="#agreement-page?agreementid=' + agreement.id + '&companyid=' + companyId + '">' + agreement.type + '</a></li>');
 			}
 
@@ -131,13 +130,13 @@ $(document).bind("mobileinit", function(){
 			list.empty();
 			var members = getData('companies/' + companyId + '/agreements/' + agreementId + '/members', function(members){
 				$.each(members, function(i, member){
-					list.append('<li><a href="#member-page?companyid=' + companyId + '&agreementid=' + agreementId + '&memberid=' + member.id + '">' + member.name + '</a></li>');
+					list.append('<li data-swipeurl="companies/' + companyId + '/agreements/' + agreement.id + '/members/' + member.id + '"><a href="#member-page?companyid=' + companyId + '&agreementid=' + agreementId + '&memberid=' + member.id + '">' + member.name + '</a></li>');
 				});
 				$('#agreement-header').html(header);
 				$('#agreement-details p').html(details);
 				page.page();
 				$('#member-list').listview('refresh');
-				attachSwipeDeleteListener();
+				attachSwipeDeleteListener('#member-list');
 			});
 		});
 	}
@@ -233,8 +232,8 @@ $(document).bind("mobileinit", function(){
 
 
 
-	function attachSwipeDeleteListener() {
-		$('#member-list li').swipeDelete({
+	function attachSwipeDeleteListener(list) {
+		$(list+' li').swipeDelete({
 			btnTheme: 'e',
 			btnLabel: 'Slett',
 			btnClass: 'aSwipeButton',
@@ -245,7 +244,7 @@ $(document).bind("mobileinit", function(){
 				$(this).parents('li').slideUp();
 				$.ajax({
 					url: baseUrl + url,
-					type: 'POST',
+					type: 'DELETE',
 					success:function(data) {
 						return false;
 					}
