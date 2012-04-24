@@ -5,7 +5,7 @@ $(document).bind("mobileinit", setupTheme);
 // Intercept calls to changePage() and fill pages with data from server
 $(document).bind("pagebeforechange", function(e, data) {
     var url = getURL(data);
-    
+
     switch (getPage(data)) {
     case "frontpage":
         populateCompanies();
@@ -17,7 +17,7 @@ $(document).bind("pagebeforechange", function(e, data) {
 
     case "agreement":
         populateAgreementPage(url, data.options, $('#agreement-page'));
-        break; 
+        break;
 
     case "member-form":
         populateMemberForm(url, data.options, $('#register-member-form-page'));
@@ -34,7 +34,7 @@ $(document).bind("pagebeforechange", function(e, data) {
     default:
         break;
     }
-    
+
 });
 
 function showMap(url, options, page) {
@@ -81,7 +81,7 @@ function populateAgreements(url, options, page) {
             markup += ('<li data-agreementid="' + agreement.id + '" ' +
                     'data-agreementname="' + agreement.agreementNumber + '" ' +
                     'data-companyid="' + companyId + '">' +
-                    '<a href="#agreement-page?agreementid=' + agreement.id + '&companyid=' + companyId + '">' + agreement.type + 
+                    '<a href="#agreement-page?agreementid=' + agreement.id + '&companyid=' + companyId + '">' + agreement.type +
                     '<span class="ui-li-count">'+agreement.members.length+'</span></a></li>');
         }
 
@@ -101,20 +101,20 @@ function populateAgreementPage(url, options, page) {
     $content = $(page).children(":jqmData(role=content)");
     getData('companies/' + companyId + '/agreements/' + agreementId, function(agreement) {
         var header = '<h4>' + agreement.type + ' - ' + agreement.agreementNumber + '</h4>';
-        var details = '<p>Registrert: ' +  getDateAsString(agreement.registered) + '<br />'; 
-        details += 'Status: ' +  agreement.status + '<br />'; 
-        details += 'Laveste opptaksalder: ' +  agreement.minimumAge + ' år</p>'; 
+        var details = '<p>Registrert: ' +  getDateAsString(agreement.registered) + '<br />';
+        details += 'Status: ' +  agreement.status + '<br />';
+        details += 'Laveste opptaksalder: ' +  agreement.minimumAge + ' år</p>';
         $('#agreement-header').html(header);
         $('#agreement-details p').html(details);
         registerButton.attr('href', "#register-member-form-page?companyid=" + companyId + "&agreementid=" + agreementId);
-        
+
         var list = $('#member-list');
         list.empty();
         var members = getData('companies/' + companyId + '/agreements/' + agreementId + '/members', function(members){
             $.each(members, function(i, member){
                 list.append('<li data-swipeurl="companies/' + companyId + '/agreements/' + agreement.id + '/members/' + member.id + '"><a href="#member-page?companyid=' + companyId + '&agreementid=' + agreementId + '&memberid=' + member.id + '">' + member.name + '</a></li>');
             });
-            
+
             page.page();
             $('#member-list').listview('refresh');
             attachSwipeDeleteListener('#member-list');
@@ -131,7 +131,7 @@ function populateMemberPage(url, options, page) {
     var editButton = $("#edit-member-button");
 
     getData('companies/' + companyId + '/agreements/' + agreementId + '/members/' + memberId, function(member) {
-        var detailsText = '<p>Lønn: ' +  member.salary + ' kr</p>'; 
+        var detailsText = '<p>Lønn: ' +  member.salary + ' kr</p>';
 
         header.html(member.name);
         details.html(detailsText);
