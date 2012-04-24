@@ -1,47 +1,10 @@
-function setupTheme() {
-    $.extend($.mobile,{
-        defaultPageTransition: 'slidefade', //or slide?
-        defaultDialogTransition: 'pop'
-    });
-
-
-    $.mobile.page.prototype.options.addBackBtn = true;
-    $.mobile.page.prototype.options.backBtnText = "Tilbake";
-
-
-    // Listviews
-    $.mobile.listview.prototype.options.headerTheme  = "b";  // Header for nested lists
-    $.mobile.listview.prototype.options.theme        = "b";  // List items / content
-    $.mobile.listview.prototype.options.dividerTheme = "b";  // List divider
-    $.mobile.listview.prototype.options.splitTheme   = "b";
-    $.mobile.listview.prototype.options.countTheme   = "b";
-    $.mobile.listview.prototype.options.filterTheme  = "b";
-}
-
-function attachSwipeDeleteListener(list) {
-    $(list+' li').swipeDelete({
-        btnTheme: 'e',
-        btnLabel: 'Slett',
-        btnClass: 'aSwipeButton',
-        click: function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            var url = $(e.target).closest('a.aSwipeButton').attr('href');
-            $(this).parents('li').slideUp();
-            $.ajax({
-                url: baseUrl + url,
-                type: 'DELETE',
-                success:function(data) {
-                    return false;
-                }
-            });
-        }
-    });
-}
-
-function getURL(data) {
-    var url = $.mobile.path.parseUrl(data.toPage);
-    return url.href;
+function getDateAsString(milliseconds){
+    var dateObject = new Date(milliseconds);
+    var year = dateObject.getFullYear();
+    var month = dateObject.getMonth()+1;
+    var date = dateObject.getDate();
+    var time = date + '.' + month + '.' + year;
+    return time;
 }
 
 function getURLParameter(name, hash) {
@@ -51,6 +14,21 @@ function getURLParameter(name, hash) {
     } else {
         return null;
     }
+}
+
+function displayMap(latitude, longitude) {
+    var start = new google.maps.LatLng(59.912083, 10.750615);
+    var end = new google.maps.LatLng(latitude, longitude);
+    var directionsDisplay = new google.maps.DirectionsRenderer();
+
+    directionsDisplay.setMap(getMap());
+
+    addDirections(directionsDisplay, start, end);
+}
+
+function getURL(data) {
+    var url = $.mobile.path.parseUrl(data.toPage);
+    return url.href;
 }
 
 function getPage(data) {
@@ -71,24 +49,6 @@ function getPage(data) {
     } else if ($(data.toPage)[0] == $('#welcome-page')[0]) {
         return "frontpage";
     }
-}
-
-function getData(url, callback) {
-    $.ajax({
-        url: baseUrl + url,
-        dataType: "json",
-        success : callback
-    });
-}
-
-function displayMap(latitude, longitude) {
-    var start = new google.maps.LatLng(59.912083, 10.750615);
-    var end = new google.maps.LatLng(latitude, longitude);
-    var directionsDisplay = new google.maps.DirectionsRenderer();
-
-    directionsDisplay.setMap(getMap());
-
-    addDirections(directionsDisplay, start, end);
 }
 
 function getMap() {
@@ -118,18 +78,50 @@ function addDirections(map, start, end) {
     });
 }
 
-function getDateAsString(milliseconds){
-    var dateObject = new Date(milliseconds);
-    var year = dateObject.getFullYear();
-    var month = dateObject.getMonth()+1;
-    var date = dateObject.getDate();
-    var time = date + '.' + month + '.' + year;
-    return time;
-}
-
 $(document).bind("mobileinit", function() {
     $('[data-role=page]').bind('pageshow', function () {
         //refresh the listview on the current page (if it exists)
         $(this).find('.ui-listview').listview('refresh');
     });
 });
+
+function attachSwipeDeleteListener(list) {
+    $(list+' li').swipeDelete({
+        btnTheme: 'e',
+        btnLabel: 'Slett',
+        btnClass: 'aSwipeButton',
+        click: function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var url = $(e.target).closest('a.aSwipeButton').attr('href');
+            $(this).parents('li').slideUp();
+            $.ajax({
+                url: baseUrl + url,
+                type: 'DELETE',
+                success:function(data) {
+                    return false;
+                }
+            });
+        }
+    });
+}
+
+function setupTheme() {
+    $.extend($.mobile,{
+        defaultPageTransition: 'slidefade',
+        defaultDialogTransition: 'pop'
+    });
+
+
+    $.mobile.page.prototype.options.addBackBtn = true;
+    $.mobile.page.prototype.options.backBtnText = "Tilbake";
+
+    // Listviews
+    $.mobile.listview.prototype.options.headerTheme  = "b";  // Header for nested lists
+    $.mobile.listview.prototype.options.theme        = "b";  // List items / content
+    $.mobile.listview.prototype.options.dividerTheme = "b";  // List divider
+    $.mobile.listview.prototype.options.splitTheme   = "b";
+    $.mobile.listview.prototype.options.countTheme   = "b";
+    $.mobile.listview.prototype.options.filterTheme  = "b";
+}
+

@@ -12,19 +12,19 @@ $(document).bind("pagebeforechange", function(e, data) {
         break;
 
     case "agreement-list":
-        populateAgreements(url, data.options, $('#agreement-list-page')); // should be data.options here as well? But it isn't working. The back button from agreement-list-page to welcome-page won't work.
+        populateAgreements(url, $('#agreement-list-page'));
         break;
 
     case "agreement":
-        populateAgreementPage(url, data.options, $('#agreement-page'));
+        populateAgreementPage(url, $('#agreement-page'));
         break;
 
     case "member-form":
-        populateMemberForm(url, data.options, $('#register-member-form-page'));
+        populateMemberForm(url, $('#register-member-form-page'));
         break;
 
     case "member":
-        populateMemberPage(url, data.options, $('#member-page'));
+        populateMemberPage(url, $('#member-page'));
         break;
 
     case "map":
@@ -37,25 +37,13 @@ $(document).bind("pagebeforechange", function(e, data) {
 
 });
 
-function showMap(url, options, page) {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-            var latitude = position.coords.latitude;
-            var longitude = position.coords.longitude;
-
-            displayMap(latitude, longitude);
-
-            page.page();
-        }, function() {
-            alert("getlocation failed");
-        });
-    }
-}
-
 function populateCompanies() {
     var list = $('#company-list');
 
-    getData('companies', function(data) {
+    $.ajax({
+        url: baseUrl + 'companies',
+        dataType: "json",
+        success: function(data) {
         list.empty();
 
         for(var i = 0; i<data.length; i++) {
@@ -64,65 +52,84 @@ function populateCompanies() {
         }
 
         list.listview('refresh');
+    }
     });
 }
 
-function populateAgreements(url, options, page) {
+function populateAgreements(url, page) {
     var companyId = getURLParameter("companyid", url);
     var list = $('#agreement-list');
     var markup = "";
 
-    getData('companies/' + companyId + '/agreements', function(data) {
-        list.empty();
+    $.ajax({
+        url: baseUrl + 'companies/' + companyId + '/agreements',
+        dataType: "json",
+        success: function(data) {
+            list.empty();
 
-        for(var i = 0; i<data.length; i++) {
-            var agreement = data[i];
+            for(var i = 0; i<data.length; i++) {
+                var agreement = data[i];
 
-            markup += ('<li data-agreementid="' + agreement.id + '" ' +
-                    'data-agreementname="' + agreement.agreementNumber + '" ' +
-                    'data-companyid="' + companyId + '">' +
-                    '<a href="#agreement-page?agreementid=' + agreement.id + '&companyid=' + companyId + '">' + agreement.type +
-                    '<span class="ui-li-count">'+agreement.members.length+'</span></a></li>');
+                markup += ('<li data-agreementid="' + agreement.id + '" ' +
+                           'data-agreementname="' + agreement.agreementNumber + '" ' +
+                           'data-companyid="' + companyId + '">' +
+                           '<a href="#agreement-page?agreementid=' + agreement.id + '&companyid=' + companyId + '">' + agreement.type +
+                           '<span class="ui-li-count">'+agreement.members.length+'</span></a></li>');
+            }
+
+            list.append(markup);
+
+            page.page();
+
+            list.listview('refresh');
         }
-
-        list.append(markup);
-
-        page.page();
-
-        list.listview('refresh');
     });
 }
 
 
-function populateAgreementPage(url, options, page) {
+function populateAgreementPage(url, page) {
     var agreementId = getURLParameter("agreementid", url);
     var companyId = getURLParameter("companyid", url);
     var registerButton = $('#register-member-button');
+
     $content = $(page).children(":jqmData(role=content)");
-    getData('companies/' + companyId + '/agreements/' + agreementId, function(agreement) {
-        var header = '<h4>' + agreement.type + ' - ' + agreement.agreementNumber + '</h4>';
-        var details = '<p>Registrert: ' +  getDateAsString(agreement.registered) + '<br />';
-        details += 'Status: ' +  agreement.status + '<br />';
-        details += 'Laveste opptaksalder: ' +  agreement.minimumAge + ' år</p>';
-        $('#agreement-header').html(header);
-        $('#agreement-details p').html(details);
-        registerButton.attr('href', "#register-member-form-page?companyid=" + companyId + "&agreementid=" + agreementId);
 
-        var list = $('#member-list');
-        list.empty();
-        var members = getData('companies/' + companyId + '/agreements/' + agreementId + '/members', function(members){
-            $.each(members, function(i, member){
-                list.append('<li data-swipeurl="companies/' + companyId + '/agreements/' + agreement.id + '/members/' + member.id + '"><a href="#member-page?companyid=' + companyId + '&agreementid=' + agreementId + '&memberid=' + member.id + '">' + member.name + '</a></li>');
+    $.ajax({
+        url: baseUrl + 'companies/' + companyId + '/agreements/' + agreementId,
+        dataType: "json",
+        success: function(agreement) {
+            var header = '<h4>' + agreement.type + ' - ' + agreement.agreementNumber + '</h4>';
+
+            var details = '<p>Registrert: ' +  getDateAsString(agreement.registered) + '<br />';
+            details += 'Status: ' +  agreement.status + '<br />';
+            details += 'Laveste opptaksalder: ' +  agreement.minimumAge + ' år</p>';
+
+            $('#agreement-header').html(header);
+            $('#agreement-details p').html(details);
+
+            registerButton.attr('href', "#register-member-form-page?companyid=" + companyId + "&agreementid=" + agreementId);
+
+            var list = $('#member-list');
+            list.empty();
+
+            $.ajax({
+                url: baseUrl + 'companies/' + companyId + '/agreements/' + agreementId + '/members',
+                dataType: "json",
+                success: function(members){
+                    $.each(members, function(i, member){
+                        list.append('<li data-swipeurl="companies/' + companyId + '/agreements/' + agreement.id + '/members/' + member.id + '"><a href="#member-page?companyid=' + companyId + '&agreementid=' + agreementId + '&memberid=' + member.id + '">' + member.name + '</a></li>');
+                    });
+
+                    page.page();
+                    $('#member-list').listview('refresh');
+                    attachSwipeDeleteListener('#member-list');
+                }
             });
-
-            page.page();
-            $('#member-list').listview('refresh');
-            attachSwipeDeleteListener('#member-list');
-        });
+        }
     });
 }
 
-function populateMemberPage(url, options, page) {
+function populateMemberPage(url, page) {
     var agreementId = getURLParameter("agreementid", url);
     var companyId = getURLParameter("companyid", url);
     var memberId = getURLParameter("memberid", url);
@@ -130,7 +137,10 @@ function populateMemberPage(url, options, page) {
     var details = $('#member-details');
     var editButton = $("#edit-member-button");
 
-    getData('companies/' + companyId + '/agreements/' + agreementId + '/members/' + memberId, function(member) {
+    $.ajax({
+        url: baseUrl + 'companies/' + companyId + '/agreements/' + agreementId + '/members/' + memberId,
+        dataType: "json",
+        success : function(member) {
         var detailsText = '<p>Lønn: ' +  member.salary + ' kr</p>';
 
         header.html(member.name);
@@ -138,10 +148,11 @@ function populateMemberPage(url, options, page) {
         editButton.attr('href', "#register-member-form-page?edit=true&companyid=" + companyId + "&agreementid=" + agreementId + "&memberid=" +member.id);
 
         page.page();
+    }
     });
 }
 
-function populateMemberForm(url, options, page) {
+function populateMemberForm(url, page) {
     var agreementId = getURLParameter("agreementid", url);
     var companyId = getURLParameter("companyid", url);
     var isEdit = getURLParameter("edit", url);
@@ -155,10 +166,14 @@ function populateMemberForm(url, options, page) {
         $('#register-member-form #name').val("");
         $('#register-member-form #salary').val("");
     }else {
-        getData('companies/' + companyId + '/agreements/' + agreementId + '/members/' + memberId, function(member) {
-            $('#register-member-form #ssn').val(member.fnr);
-            $('#register-member-form #name').val(member.name);
-            $('#register-member-form #salary').val(member.salary);
+        $.ajax({
+            url: baseUrl + 'companies/' + companyId + '/agreements/' + agreementId + '/members/' + memberId,
+            dataType: "json",
+            success : function(member) {
+                $('#register-member-form #ssn').val(member.fnr);
+                $('#register-member-form #name').val(member.name);
+                $('#register-member-form #salary').val(member.salary);
+            }
         });
 
         deleteButton.click(function(){
@@ -171,8 +186,6 @@ function populateMemberForm(url, options, page) {
     });
 
     page.page();
-
-    options.dataUrl = url;
 }
 
 function submitMemberForm(companyId, agreementId, memberId) {
@@ -192,7 +205,7 @@ function submitMemberForm(companyId, agreementId, memberId) {
         type : 'POST',
         data: JSON.stringify(member),
         dataType: "json",
-        success : function(createdmember){
+        success: function(createdmember){
             $.mobile.changePage('#member-page?companyid=' + companyId + '&agreementid=' + agreementId + '&memberid=' + createdmember.id);
         },
         error: function(){
@@ -206,11 +219,26 @@ function deleteMember(companyId, agreementId, memberId){
     $.ajax({
         url: baseUrl+'companies/' + companyId + "/agreements/" + agreementId + "/members/" + memberId,
         type : 'Delete',
-        success : function(createdmember){
+        success: function(createdmember){
             $.mobile.changePage('#agreement-page?companyid=' + companyId + '&agreementid=' + agreementId);
         },
         error: function(){
 
         }
     });
+}
+
+function showMap(url, page) {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            var latitude = position.coords.latitude;
+            var longitude = position.coords.longitude;
+
+            displayMap(latitude, longitude);
+
+            page.page();
+        }, function() {
+            alert("getlocation failed");
+        });
+    }
 }
