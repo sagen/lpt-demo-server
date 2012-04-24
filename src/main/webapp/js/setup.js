@@ -71,7 +71,6 @@ $(document).bind("mobileinit", function(){
 
 				options.dataUrl = urlObj.href;
 
-				$.mobile.changePage(page, options);
 			}, function() {
 				alert("getlocation failed");
 			});
@@ -119,8 +118,6 @@ $(document).bind("mobileinit", function(){
 			list.listview('refresh');
 
 			attachSwipeDeleteListener();
-
-			options.dataUrl = urlObj.href;
 		});
 	}
 
@@ -137,6 +134,7 @@ $(document).bind("mobileinit", function(){
 			var list = $('#member-list');
 			list.html("");
 			list.empty();
+			$.mobile.showPageLoadingMsg();
 			var members = getData('companies/' + companyId + '/agreements/' + agreementId + '/members', function(members){
 				$.each(members, function(i, member){
 					list.append('<li><a href="#member-page?companyid=' + companyId + '&agreementid=' + agreementId + '&memberid=' + member.id + '">' + member.name + '</a></li>');
@@ -145,7 +143,7 @@ $(document).bind("mobileinit", function(){
 				$('#agreement-details p').html(details);
 				page.page();
 				$('#member-list').listview('refresh');
-				options.dataUrl = urlObj.href;
+				$.mobile.hidePageLoadingMsg();
 			});
 		});
 	}
@@ -166,9 +164,6 @@ $(document).bind("mobileinit", function(){
 			editButton.attr('href', "#register-member-form-page?edit=true&companyid=" + companyId + "&agreementid=" + agreementId + "&memberid=" +member.id);
 
 			page.page();
-
-			options.dataUrl = urlObj.href;
-
 		});
 	}
 
@@ -200,9 +195,6 @@ $(document).bind("mobileinit", function(){
 		});
 
 		page.page();
-
-
-		options.dataUrl = urlObj.href;
 	}
 
 	function submitMemberForm(companyId, agreementId) {
