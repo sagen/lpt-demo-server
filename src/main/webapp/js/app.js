@@ -88,157 +88,21 @@ function populateAgreements(url, page) {
 
 
 function populateAgreementPage(url, page) {
-    var agreementId = getURLParameter("agreementid", url);
-    var companyId = getURLParameter("companyid", url);
-    var registerButton = $('#register-member-button');
-
-    $content = $(page).children(":jqmData(role=content)");
-
-    $.ajax({
-        url: baseUrl + 'companies/' + companyId + '/agreements/' + agreementId,
-        dataType: "json",
-        success: function(agreement) {
-            var header = '<h4>' + agreement.type + ' - ' + agreement.agreementNumber + '</h4>';
-
-            var details = '<p>Registrert: ' +  getDateAsString(agreement.registered) + '<br />';
-            details += 'Status: ' +  agreement.status + '<br />';
-            details += 'Laveste opptaksalder: ' +  agreement.minimumAge + ' år</p>';
-
-            $('#agreement-header').html(header);
-            $('#agreement-details p').html(details);
-
-            registerButton.attr('href', "#register-member-form-page?companyid=" + companyId + "&agreementid=" + agreementId);
-
-            var list = $('#member-list');
-            list.empty();
-
-            $.ajax({
-                url: baseUrl + 'companies/' + companyId + '/agreements/' + agreementId + '/members',
-                dataType: "json",
-                success: function(members){
-                    $.each(members, function(i, member){
-                        list.append('<li data-swipeurl="companies/' + companyId + '/agreements/' + agreement.id + '/members/' + member.id + '"><a href="#member-page?companyid=' + companyId + '&agreementid=' + agreementId + '&memberid=' + member.id + '">' + member.name + '</a></li>');
-                    });
-
-                    page.page();
-                    $('#member-list').listview('refresh');
-                    attachSwipeDeleteListener('#member-list');
-                }
-            });
-        }
-    });
+    // Oppgave 1 og 2
 }
 
 function populateMemberPage(url, page) {
-    var agreementId = getURLParameter("agreementid", url);
-    var companyId = getURLParameter("companyid", url);
-    var memberId = getURLParameter("memberid", url);
-    var header = $('#member-header');
-    var details = $('#member-details');
-    var editButton = $("#edit-member-button");
-
-    $.ajax({
-        url: baseUrl + 'companies/' + companyId + '/agreements/' + agreementId + '/members/' + memberId,
-        dataType: "json",
-        success : function(member) {
-            var detailsText = '<p>Lønn: ' +  member.salary + ' kr</p>';
-
-            header.html(member.name);
-            details.html(detailsText);
-            editButton.attr('href', "#register-member-form-page?edit=true&companyid=" + companyId + "&agreementid=" + agreementId + "&memberid=" +member.id);
-
-            page.page();
-        }
-    });
+    // Oppgave 3
 }
 
 function populateMemberForm(url, page) {
-    var agreementId = getURLParameter("agreementid", url);
-    var companyId = getURLParameter("companyid", url);
-    var isEdit = getURLParameter("edit", url);
-    var submitButton = $('#register-member-submit-button');
-    var deleteButton = $('#member-delete-button');
-    var memberId = getURLParameter("memberid", url);
-
-    if(isEdit !== 'true'){
-        deleteButton.hide();
-        $('#register-member-form #ssn').val("");
-        $('#register-member-form #name').val("");
-        $('#register-member-form #salary').val("");
-    }else {
-        $.ajax({
-            url: baseUrl + 'companies/' + companyId + '/agreements/' + agreementId + '/members/' + memberId,
-            dataType: "json",
-            success : function(member) {
-                $('#register-member-form #ssn').val(member.fnr);
-                $('#register-member-form #name').val(member.name);
-                $('#register-member-form #salary').val(member.salary);
-            }
-        });
-
-        deleteButton.click(function(){
-            deleteMember(companyId, agreementId, memberId);
-        });
-    }
-
-    submitButton.click(function(){
-        submitMemberForm(companyId, agreementId, memberId);
-    });
-
-    page.page();
-}
-
-function submitMemberForm(companyId, agreementId, memberId) {
-    var member = {};
-    member.fnr = $('#register-member-form #ssn').val();
-    member.name = $('#register-member-form #name').val();
-    member.salary = $('#register-member-form #salary').val();
-
-    var url = baseUrl + 'companies/' + companyId + '/agreements/' + agreementId + '/members/';
-    if (memberId) {
-        url += memberId;
-    }
-
-    $.ajax({
-        url: url,
-        contentType: "application/json",
-        type : 'POST',
-        data: JSON.stringify(member),
-        dataType: "json",
-        success: function(createdmember){
-            $.mobile.changePage('#member-page?companyid=' + companyId + '&agreementid=' + agreementId + '&memberid=' + createdmember.id);
-        },
-        error: function(){
-
-        }
-    });
-
+    // Oppgave 4
 }
 
 function deleteMember(companyId, agreementId, memberId){
-    $.ajax({
-        url: baseUrl+'companies/' + companyId + "/agreements/" + agreementId + "/members/" + memberId,
-        type : 'Delete',
-        success: function(createdmember){
-            $.mobile.changePage('#agreement-page?companyid=' + companyId + '&agreementid=' + agreementId);
-        },
-        error: function(){
-
-        }
-    });
+    // Oppgave 5
 }
 
 function showMap(url, page) {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-            var latitude = position.coords.latitude;
-            var longitude = position.coords.longitude;
-
-            displayMap(latitude, longitude);
-
-            page.page();
-        }, function() {
-            alert("getlocation failed");
-        });
-    }
+    // Oppgave 6
 }
