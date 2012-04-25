@@ -132,7 +132,14 @@ altså Java-APIet for å lage REST-tjenester.
 
 Annotasjonsbasert.
 
-TODO: kort eksempel.
+    .java
+    @PUT
+    @Path("/member/{memberId}")
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public Member editMember(@PathParam("memberId") int memberId, Member member){
+        return DataStore.editMember(memberId, member);
+    }
 
 ---
 
