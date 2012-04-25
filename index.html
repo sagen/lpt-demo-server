@@ -180,11 +180,11 @@ http://jquerymobile.com/
     .html
     <!-- WELCOME PAGE -->
     <div id="welcome-page" data-role="page" data-theme="a">
-    
+
       <div data-role="header">
         <img src="img/SB1_header_logo.png" class="logo" />
       </div>
-    
+
       <div data-role="content">
         <h4>Velkommen til fagdag!</h4>
         <p>I løpet av noen timer skal dere lage LPT på mobil!</p>
@@ -211,9 +211,9 @@ Så hvordan fyller vi inn firmalisten?
 
         list.empty();
 
-        for(var i = 0; i < companies.length; i++) {
+        for(var i = 0; i &lt; companies.length; i++) {
           var company = companies[i];
-          list.append('<li><a href="#agreement-list-page?companyid=' + company.id + '">' + 
+          list.append('<li><a href="#agreement-list-page?companyid=' + company.id + '">' +
               company.name + '</a></li>');
         }
 
