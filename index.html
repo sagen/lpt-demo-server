@@ -76,6 +76,8 @@ Men det er mye som passer veldig bra i den konteksten, for eksempel:
 * Offline-støtte
 * Canvas (vi har jo ikke flash)
 
+Og touch er så klart sentralt.
+
 ---
 
 # JSF og mobil
@@ -88,9 +90,11 @@ Men i det siste har Mobilbank-prosjektet og andre prosjekter basert seg på en a
 
 # JSF og mobil
 
-JSF er tilstandsbasert.
-
 JSF tar mange klare valg.
+
+Støtter dårlig: HTML5, JSON og Ajax.
+
+Veldig mye frontend er forsøkt abstrahert bort.
 
 Primært leveranse av hele HTML-responser.
 
@@ -148,6 +152,14 @@ Annotasjonsbasert.
 REST og JavaScript muliggjør nye måter å løse problemer.
 
 (Altså: det er et nytt verktøy i verktøykassa)
+
+---
+
+.middle.center
+
+Vi skal leke litt med jQuery Mobile
+
+http://jquerymobile.com/
 
 ---
 
@@ -244,19 +256,23 @@ Inneholder:
 
 ---
 
-# Oppgave 1
+# Oppsett av WinSCP
 
-Vise informasjon om en avtale.
+    .no-highlight
+    Host: lpt.cookiejar.no
+    Bruker/passord: gruppe{1,2,3,4}:gruppe{1,2,3,4}
 
-Skal vise:
+Legg inn filene i web-mappa
 
-* Registreringsdato
-* Status
-* Minimumsalder
+Gå til http://lpt.cookiejar.no/{1,2,3,4}
+
+Tips: `ctrl-u` i WinSCP holder remote directory i sync med lokalt
 
 ---
 
-# REST-endepunkt
+# Oppgave 1
+
+Vise informasjon om en avtale.
 
 URL: `http://lptdemo.herokuapp.com/rest/companies/{id}/agreements/{id}`
 
@@ -279,30 +295,23 @@ Eksempelrespons:
 
 Vise liste med medlemmer tilknyttet en avtale
 
-Skal vise navn.
-
 URL: `http://lptdemo.herokuapp.com/rest/companies/{id}/agreements/{id}/members`
 
 Eksempelrespons:
 
     .javascript
     [
-      {"id":48,"fnr":"01013943423","name":"Mari Braathen","salary":810000,"registered":704552360350},
-      {"id":46,"fnr":"25013947352","name":"Arne Braathen","salary":717000,"registered":704552360350}
+      {"id": 48,"fnr": "01013943423","name": "Mari Braathen",
+        "salary": 810000,"registered": 704552360350},
+      {"id": 46,"fnr": "25013947352","name": "Arne Braathen",
+        "salary": 717000,"registered": 704552360350}
     ]
 
 ---
 
 # Oppgave 3
 
-Vise medlemsinformasjon.
-
-Skal vise:
-
-* Fødselsnummer
-* Navn
-* Lønn
-* Registreringstidspunkt
+Sidebytte og visning av medlemsinformasjon.
 
 URL: `http://lptdemo.herokuapp.com/rest/companies/{id}/agreements/{id}/members/{id}`
 
@@ -354,7 +363,7 @@ Slette bruker.
 
 Både med knapp og med swipe.
 
-Swipe-funksjonen.
+Sjekk ut `https://github.com/commadelimited/jquery.swipeButton.js`
 
 ---
 
@@ -362,7 +371,7 @@ Swipe-funksjonen.
 
 Vise veibeskrivelse til nærmeste Sparebank1-kontor.
 
-`navigator.geolocation`
+Sjekk ut `navigator.geolocation`. Har en `displayMap`-hjelpemetode også.
 
     </textarea>
     <div id="slideshow"></div>
