@@ -85,26 +85,6 @@ $(document).bind("mobileinit", function() {
     });
 });
 
-function attachSwipeDeleteListener(list) {
-    $(list+' li').swipeDelete({
-        btnTheme: 'e',
-        btnLabel: 'Slett',
-        btnClass: 'aSwipeButton',
-        click: function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            var url = $(e.target).closest('a.aSwipeButton').attr('href');
-            $(this).parents('li').slideUp();
-            $.ajax({
-                url: baseUrl + url,
-                type: 'DELETE',
-                success:function(data) {
-                    return false;
-                }
-            });
-        }
-    });
-}
 
 function setupTheme() {
     $.extend($.mobile,{
